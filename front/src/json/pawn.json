@@ -1,0 +1,31 @@
+{
+    "files": ["a", "b", "c", "d", "e", "f", "g", "h"],
+    "ranks": ["1", "2", "3", "4", "5", "6", "7", "8"],
+    "pieces": {
+        "a2": {"name": "p", "color": "white"},
+        "b2": {"name": "p", "color": "white"},
+        "c2": {"name": "p", "color": "white"},
+        "d2": {"name": "p", "color": "white"},
+        "e2": {"name": "p", "color": "white"},
+        "f2": {"name": "p", "color": "white"},
+        "g2": {"name": "p", "color": "white"},
+        "h2": {"name": "p", "color": "white"},
+        
+        "a8": {"name": "r", "color": "black"},
+        "b8": {"name": "n", "color": "black"},
+        "c8": {"name": "b", "color": "black"},
+        "d8": {"name": "q", "color": "black"},
+        "e8": {"name": "k", "color": "black"},
+        "f8": {"name": "b", "color": "black"},
+        "g8": {"name": "n", "color": "black"},
+        "h8": {"name": "r", "color": "black"},
+        "a7": {"name": "p", "color": "black"},
+        "b7": {"name": "p", "color": "black"},
+        "c7": {"name": "p", "color": "black"},
+        "d7": {"name": "p", "color": "black"},
+        "e7": {"name": "p", "color": "black"},
+        "f7": {"name": "p", "color": "black"},
+        "g7": {"name": "p", "color": "black"},
+        "h7": {"name": "p", "color": "black"}
+    }
+}

@@ -1,0 +1,18 @@
+export const Direction = {
+    Up:             { x: 1 , y: 0 },
+    UpRight:        { x: 1 , y: 1 },
+    Right:          { x: 0 , y: 1 },
+    DownRight:      { x:-1 , y: 1 },
+    Down:           { x:-1 , y: 0 },
+    DownLeft:       { x:-1 , y:-1 },
+    Left:           { x: 0 , y:-1 },
+    UpLeft:         { x: 1 , y:-1 },
+    UpUpRight:      { x: 2 , y: 1 },
+    UpRightRight:   { x: 1 , y: 2 },
+    DownRightRight: { x:-1 , y: 2 },
+    DownDownRight:  { x:-2 , y: 1 },
+    DownDownLeft:   { x:-2 , y:-1 },
+    DownLeftLeft:   { x:-1 , y:-2 },
+    UpLeftLeft:     { x: 1 , y:-2 },
+    UpUpLeft:       { x: 2 , y:-1 },
+}

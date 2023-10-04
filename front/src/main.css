@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+:root {
+	/* Square Colors */
+	--color-white: hsl(0,0%,95%);
+	--color-light: hsl(0,0%,85%);
+	--color-light-gray: hsl(0,0%,75%);
+	--color-gray: hsl(0,0%,50%);
+	--color-dark-gray: hsl(0,0%,25%);
+	--color-dark: hsl(0,0%,15%);
+	--color-black: hsl(0,0%,5%);
+
+	/* Player Colors */
+	--player-color-white: #ffffff;
+	--player-color-black: #000000;
+	--player-color-silver: #C0C0C0;
+	--player-color-gold: #FFD700;
+
+	/* Dimensions */
+	--navbar-height: 70px;
+	--mobile-nav-max-width: 600px;
+	--max-square-size: 65px;
+}
+
+body {
+	color: var(--color-white);
+	background-color: var(--color-black);
+
+	padding: 0;
+	margin: 0;
+	padding-top: var(--navbar-height);
+	overflow-x: hidden;
+
+	font-family: 'Kanit';
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Player Colors */
+
+.player-color-white {
+	background-color: var(--player-color-white);
+}
+
+.player-color-black {
+	background-color: var(--player-color-black);
+}
+
+.player-color-silver {
+	background-color: var(--player-color-silver);
+}
+
+.player-color-gold {
+	background-color: var(--player-color-gold);
+}
+
+/* Square Colors */
+
+.square-light-brown {
+	background-color: wheat;
+}
+
+.square-dark-brown {
+	background-color: burlywood;
+}
+
+.square-light-gray {
+	background-color: lightgray;
+}
+
+.square-dark-gray {
+	background-color: darkgray;
+}
+
+.square-light-blue {
+	background-color: hsl(240,100%,90%);
+}
+
+.square-dark-blue {
+	background-color: hsl(240,100%,70%);
+}
+
+.square-light-green {
+	background-color: hsl(120,50%,90%);
+}
+
+.square-dark-green {
+	background-color: hsl(120,50%,70%);
+}
+
+.square-light-red {
+	background-color: hsl(0,100%,90%);
+}
+
+.square-dark-red {
+	background-color: hsl(0,100%,70%);
+}
+
+.blink {
+	animation-name: blink;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+@keyframes blink {
+	0% {
+		background-color: hsla(0, 0%, 50%, 0);
+	}
+	100% {
+		background: hsla(0, 0%, 50%, 1);
+	}
+}
