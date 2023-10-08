@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Navbar from '@/components/Navbar.vue'
+    import Navbar from './components/Navbar.vue'
     import Background from './components/Background.vue'
 
     export default {

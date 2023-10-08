@@ -1,6 +1,7 @@
 <script lang="ts">
     import MobileNavToggle from '@/components/MobileNavToggle.vue';
     import { routesPlay } from '@/router/routes/routesPlay'
+    import { routesOnline } from '@/router/routes/routesOnline'
     import Dropdown from './Dropdown.vue';
     import DropdownItems from './DropdownItems.vue';
     import DropdownItem from './DropdownItem.vue';
@@ -10,6 +11,10 @@
         data() {
             return {
                 menuPlayItems: routesPlay.map((route) => ({
+                    text: route.text,
+                    path: route.path
+                })),
+                menuOnlineItems: routesOnline.map((route) => ({
                     text: route.text,
                     path: route.path
                 })),
@@ -68,6 +73,34 @@
                                 <!-- Dropdown Items Slot -->
                                 <template #dropdown-items>
                                     <template v-for="(item, index) in menuPlayItems" :key="index">
+                                        <DropdownItem>
+                                            <!-- Dropdown Item Slot -->
+                                            <template #dropdown-item>
+                                                <router-link :to="item.path">
+                                                    {{ item.text }}
+                                                </router-link>
+                                            </template>
+                                        </DropdownItem>
+                                    </template>
+                                </template>
+                            </DropdownItems>
+                        </template>
+                    </Dropdown>
+                </li>
+
+                <li class="nav-li">
+                    <Dropdown>
+                        <!-- Dropdown Toggle Slot -->
+                        <template #dropdown-toggle>
+                            <span class="nav-item">Online</span>
+                        </template>
+
+                        <!-- Dropdown Content Slot -->
+                        <template #dropdown-content>
+                            <DropdownItems>
+                                <!-- Dropdown Items Slot -->
+                                <template #dropdown-items>
+                                    <template v-for="(item, index) in menuOnlineItems" :key="index">
                                         <DropdownItem>
                                             <!-- Dropdown Item Slot -->
                                             <template #dropdown-item>
