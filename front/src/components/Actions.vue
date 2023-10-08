@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Tooltip from '@/components/Tooltip.vue';
-    import { ActionType } from '@/enums/ActionType';
+    import { ActionType } from '../enums/ActionType';
+    import Tooltip from './Tooltip.vue';
 
     export default {
         components: { Tooltip },

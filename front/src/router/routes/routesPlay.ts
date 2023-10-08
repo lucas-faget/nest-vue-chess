@@ -1,5 +1,5 @@
-import PlayLocalView from '@/views/PlayLocalView.vue'
-import { ChessVariant } from '@/enums/ChessVariant';
+import { ChessVariant } from '../../../../chess/enums/ChessVariant';
+import PlayLocalView from '../../views/PlayLocalView.vue'
 
 export const routesPlay = [
     {

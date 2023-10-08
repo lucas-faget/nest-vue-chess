@@ -1,8 +1,8 @@
+import type { ChessVariant } from "./enums/ChessVariant";
 import type { Move } from "./moves/Move";
-import { Chess } from "./Chess";
-import type { ChessVariant } from "@/enums/ChessVariant";
 import type { Player } from "./players/Player";
 import type { JsonObject } from "./types/JsonObject";
+import { Chess } from "./Chess";
 
 export class ChessLocal extends Chess
 {

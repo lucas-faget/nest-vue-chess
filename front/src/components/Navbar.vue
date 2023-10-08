@@ -1,7 +1,7 @@
 <script lang="ts">
-    import MobileNavToggle from '@/components/MobileNavToggle.vue';
-    import { routesPlay } from '@/router/routes/routesPlay'
-    import { routesOnline } from '@/router/routes/routesOnline'
+    import { routesPlay } from '../router/routes/routesPlay'
+    import { routesOnline } from '../router/routes/routesOnline'
+    import MobileNavToggle from './MobileNavToggle.vue';
     import Dropdown from './Dropdown.vue';
     import DropdownItems from './DropdownItems.vue';
     import DropdownItem from './DropdownItem.vue';

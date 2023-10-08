@@ -3,8 +3,7 @@ import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({ cors: true })
 export class ChessGateway {
-    @WebSocketServer()
-    server: Server;
+    @WebSocketServer() server: Server;
 
     handleConnection(client: Socket): void {
         // Handle connection event

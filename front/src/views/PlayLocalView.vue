@@ -1,13 +1,14 @@
 <script lang="ts">
-	import Background from '@/components/Background.vue'
-	import Chessboard from '@/components/Chessboard.vue'
-	import PlayerBar from '@/components/PlayerBar.vue'
-	import Actions from '@/components/Actions.vue'
-	import Options from '@/components/Options.vue'
-	import { SquareColor } from '@/enums/SquareColor';
-	import { ChessLocal } from '../chess/ChessLocal'
-	import { ChessVariant } from '@/enums/ChessVariant'
-	import type { Player } from '@/chess/players/Player'
+	import { ChessVariant } from '../../../chess/enums/ChessVariant'
+	import type { Player } from '../../../chess/players/Player'
+	import { ChessLocal } from '../../../chess/ChessLocal'
+	import { SquareColor } from '../enums/SquareColor';
+
+	import Background from '../components/Background.vue'
+	import Chessboard from '../components/Chessboard.vue'
+	import PlayerBar from '../components/PlayerBar.vue'
+	import Actions from '../components/Actions.vue'
+	import Options from '../components/Options.vue'
 
 	export default {
 		components: { Chessboard, Actions, PlayerBar, Options, Background },

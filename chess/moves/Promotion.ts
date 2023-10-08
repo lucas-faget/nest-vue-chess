@@ -1,8 +1,5 @@
-import { PieceName } from "../enums/PieceName";
 import { Pawn } from "../pieces/Pawn";
-import type { Piece } from "../pieces/Piece";
 import { Queen } from "../pieces/Queen";
-import type { Square } from "../Square";
 import { Capture } from "./Capture";
 
 export class Promotion extends Capture

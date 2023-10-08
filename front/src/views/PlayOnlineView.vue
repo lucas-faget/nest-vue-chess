@@ -1,13 +1,15 @@
 <script lang="ts">
-	import Background from '@/components/Background.vue'
-	import Chessboard from '@/components/Chessboard.vue'
-	import PlayerBar from '@/components/PlayerBar.vue'
-	import Actions from '@/components/Actions.vue'
-	import Options from '@/components/Options.vue'
-	import { SquareColor } from '@/enums/SquareColor';
-	import { ChessLocal } from '../chess/ChessLocal'
-	import { ChessVariant } from '@/enums/ChessVariant'
-	import type { Player } from '@/chess/players/Player'
+	import { ChessVariant } from '../../../chess/enums/ChessVariant'
+	import type { Player } from '../../../chess/players/Player'
+	import { ChessLocal } from '../../../chess/ChessLocal'
+	import { SquareColor } from '../enums/SquareColor';
+
+	import Background from '../components/Background.vue'
+	import Chessboard from '../components/Chessboard.vue'
+	import PlayerBar from '../components/PlayerBar.vue'
+	import Actions from '../components/Actions.vue'
+	import Options from '../components/Options.vue'
+
 	import io from "socket.io-client";
 
 	export default {
@@ -20,15 +22,13 @@
 		},
 		data() {
 			return {
-				socket: null,
+				socket: io('http://localhost:8000'),
 				chess: new ChessLocal(this.variant),
 				lightSquareColor: SquareColor.Brown,
 				darkSquareColor: SquareColor.Brown,
 			}
 		},
 		created() {
-			this.socket = io('http://localhost:8000');
-
 			this.socket.on('connect', () => {
 				console.log('Connected to Socket.io server');
 				this.socket.emit('chat message', 'Hello, server!'); // Émettre un message au serveur

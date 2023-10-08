@@ -8,11 +8,13 @@
 </script>
 
 <template>
-    <header class="navbar">
-        <Navbar />
-    </header>
+    <div>
+        <header class="navbar">
+            <Navbar />
+        </header>
 
-    <RouterView />
+        <router-view />
+    </div>
 </template>
 
 <style scoped>

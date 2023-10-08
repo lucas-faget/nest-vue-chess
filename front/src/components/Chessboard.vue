@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Square from '@/components/Square.vue'
-    import type { Chess } from '@/chess/Chess';
-    import { SquareColor } from '@/enums/SquareColor';
-    import { ChessVariant } from '@/enums/ChessVariant';
+    import { ChessVariant } from '../../../chess/enums/ChessVariant';
+    import { SquareColor } from '../enums/SquareColor';
+    import type { Chess } from '../../../chess/Chess';
+    import Square from './Square.vue'
 
     export default {
         components: { Square },

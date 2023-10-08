@@ -1,14 +1,14 @@
+import type { Position } from "./coordinates/Position";
+import { PieceName } from "./enums/PieceName";
 import type { Move } from "./moves/Move";
+import { ChessVariant } from "./enums/ChessVariant";
+import type { Player } from "./players/Player";
+import { Blacks, Golds, Silvers, Whites } from "./players/Players";
+import type { JsonObject } from "./types/JsonObject";
+import standardJson from "./json/standard.json";
+import fourPlayerJson from "./json/four-player.json";
 import { Chessboard } from "./Chessboard";
 import { PlayerController } from "./players/PlayerController";
-import type { Player } from "./players/Player";
-import { ChessVariant } from "@/enums/ChessVariant";
-import { Blacks, Golds, Silvers, Whites } from "./players/Players";
-import standardJson from "@/json/standard.json";
-import fourPlayerJson from "@/json/four-player.json";
-import { PieceName } from "./enums/PieceName";
-import type { JsonObject } from "./types/JsonObject";
-import type { Position } from "./coordinates/Position";
 
 export abstract class Chess
 {

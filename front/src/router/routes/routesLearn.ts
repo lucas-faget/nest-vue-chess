@@ -1,4 +1,4 @@
-import LearnView from '@/views/LearnView.vue'
+import LearnView from '../../views/LearnView.vue'
 
 export const routesLearn = [
     {

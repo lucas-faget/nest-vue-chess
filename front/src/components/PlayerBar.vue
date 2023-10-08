@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { Player } from '@/chess/players/Player';
-    import type { PieceName } from '@/chess/enums/PieceName';
-    import { PlayerColor } from '@/chess/enums/PlayerColor';
+    import { PlayerColor } from '../../../chess/enums/PlayerColor';
+    import type { PieceName } from '../../../chess/enums/PieceName';
+    import type { Player } from '../../../chess/players/Player';
 
     export default {
         props: {
@@ -52,7 +52,7 @@
                 }
             },
             isBlinking(player: Player): boolean {
-                return this.currentPlayer && this.currentPlayer === player;
+                return this.currentPlayer !== null && this.currentPlayer === player;
             }
         }
     }

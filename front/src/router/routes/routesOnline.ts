@@ -1,5 +1,5 @@
-import PlayOnlineView from '@/views/PlayOnlineView.vue'
-import { ChessVariant } from '@/enums/ChessVariant';
+import { ChessVariant } from '../../../../chess/enums/ChessVariant';
+import PlayOnlineView from '../../views/PlayOnlineView.vue'
 
 export const routesOnline = [
     {

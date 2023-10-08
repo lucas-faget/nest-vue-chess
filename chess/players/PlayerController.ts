@@ -1,6 +1,5 @@
 import { PieceName } from "../enums/PieceName";
 import type { Player } from "./Player";
-import { Pawn } from "../pieces/Pawn";
 import { Knight } from "../pieces/Knight";
 import { Rook } from "../pieces/Rook";
 import { Queen } from "../pieces/Queen";

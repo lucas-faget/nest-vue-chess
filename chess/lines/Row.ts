@@ -1,5 +1,5 @@
-import type { PlayerColor } from "../enums/PlayerColor";
 import { Line } from "./Line";
+import type { PlayerColor } from "../enums/PlayerColor";
 
 export class Row extends Line
 {

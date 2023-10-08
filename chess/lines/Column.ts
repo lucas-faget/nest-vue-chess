@@ -1,5 +1,5 @@
-import type { PieceName } from "../enums/PieceName";
 import { Line } from "./Line";
+import type { PieceName } from "../enums/PieceName";
 
 export class Column extends Line
 {

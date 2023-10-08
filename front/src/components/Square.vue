@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { Square } from '@/chess/Square';
-    import { SquareColor } from '@/enums/SquareColor';
+    import type { Square } from '../../../chess/Square';
+    import { SquareColor } from '../enums/SquareColor';
 
     export default {
         props: {

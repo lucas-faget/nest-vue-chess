@@ -1,16 +1,18 @@
 <script lang="ts">
-    import Chessboard from '@/components/Chessboard.vue'
-    import CustomButton from '@/components/CustomButton.vue';
-    import { SquareColor } from '@/enums/SquareColor';
-    import { ChessLocal } from '@/chess/ChessLocal';
-    import PawnJson from "@/json/pawn.json";
-    import KnightJson from "@/json/knight.json";
-    import BishopJson from "@/json/bishop.json";
-    import RookJson from "@/json/rook.json";
-    import QueenJson from "@/json/queen.json";
-    import KingJson from "@/json/king.json";
-    import { Whites } from '@/chess/players/Players';
-    import { ChessVariant } from '@/enums/ChessVariant';
+    import { ChessVariant } from '../../../chess/enums/ChessVariant';
+    import { Whites } from '../../../chess/players/Players';
+    import { ChessLocal } from '../../../chess/ChessLocal';
+    import { SquareColor } from '../enums/SquareColor';
+
+    import Chessboard from '../components/Chessboard.vue'
+    import CustomButton from '../components/CustomButton.vue';
+
+    import pawnJson from '../json/pawn.json';
+    import knightJson from '../json/knight.json';
+    import bishopJson from '../json/bishop.json';
+    import rookJson from '../json/rook.json';
+    import queenJson from '../json/queen.json';
+    import kingJson from '../json/king.json';
 
 	export default {
         components: { Chessboard, CustomButton },
@@ -20,37 +22,37 @@
                     {
                         title: "Pawn",
                         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-                        chess: new ChessLocal(ChessVariant.Custom, PawnJson, [Whites]),
+                        chess: new ChessLocal(ChessVariant.Custom, pawnJson, [Whites]),
                         squareColor: SquareColor.Brown
                     },
                     {
                         title: "Knight",
                         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-                        chess: new ChessLocal(ChessVariant.Custom, KnightJson, [Whites]),
+                        chess: new ChessLocal(ChessVariant.Custom, knightJson, [Whites]),
                         squareColor: SquareColor.Gray
                     },
                     {
                         title: "Bishop",
                         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-                        chess: new ChessLocal(ChessVariant.Custom, BishopJson, [Whites]),
+                        chess: new ChessLocal(ChessVariant.Custom, bishopJson, [Whites]),
                         squareColor: SquareColor.Blue
                     },
                     {
                         title: "Rook",
                         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-                        chess: new ChessLocal(ChessVariant.Custom, RookJson, [Whites]),
+                        chess: new ChessLocal(ChessVariant.Custom, rookJson, [Whites]),
                         squareColor: SquareColor.Green
                     },
                     {
                         title: "Queen",
                         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-                        chess: new ChessLocal(ChessVariant.Custom, QueenJson, [Whites]),
+                        chess: new ChessLocal(ChessVariant.Custom, queenJson, [Whites]),
                         squareColor: SquareColor.Red
                     },
                     {
                         title: "King",
                         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
-                        chess: new ChessLocal(ChessVariant.Custom, KingJson, [Whites]),
+                        chess: new ChessLocal(ChessVariant.Custom, kingJson, [Whites]),
                         squareColor: SquareColor.Brown
                     }
                 ]

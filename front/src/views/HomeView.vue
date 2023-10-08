@@ -1,5 +1,5 @@
 <script lang="ts">
-    import CustomButton from '@/components/CustomButton.vue';
+    import CustomButton from '../components/CustomButton.vue';
 
 	export default {
         components: { CustomButton },
