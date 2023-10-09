@@ -15,6 +15,7 @@ export class ChessOnline extends Chess
 
     constructor(variant: ChessVariant, customJson?: JsonObject, players?: Player[]) {
         super(variant, customJson, players);
+        this.controller.calculateMoves(this);
 
         this.socket = io('http://localhost:8000');
 
@@ -33,10 +34,10 @@ export class ChessOnline extends Chess
 
         this.socket.on('startGame', (color: string) => {
             console.log('Game started !');
-            this.controller.calculateMoves(this);
         });
 
         this.socket.on('move', (moveExport: MoveExport) => {
+            console.log(`Move from server: ${moveExport.fromSquareName} -> ${moveExport.toSquareName}`);
             let move: Move|null = this.controller.getLegalMove(moveExport.fromSquareName, moveExport.toSquareName);
             if (move) {
                 this.saveMove(move, false);
@@ -51,11 +52,15 @@ export class ChessOnline extends Chess
 
     canPlay(): boolean
     {
-        return this.isCurrentMoveTheLast() && this.controller.player === this.socketPlayer;
+        return this.controller.player === this.socketPlayer && this.isCurrentMoveTheLast();
     }
 
     saveMove(move: Move, emitToServer: boolean = true): void
     {
+        if (emitToServer) {
+            this.socket.emit('move', move.exportMove());
+        }
+
         move.carryoutMove();
         this.savedMoves.push(move);
         this.currentMoveIndex = this.savedMoves.length;
@@ -63,10 +68,6 @@ export class ChessOnline extends Chess
         this.updateAdvantage(move);
         this.updateCurrentPlayer();
         this.controller.calculateMoves(this);
-
-        if (emitToServer) {
-            this.socket.emit('move', move.exportMove());
-        }
     }
 
     deleteLastMove(): void {}

@@ -1,7 +1,5 @@
-// Dans votre contrôleur Nest.js
 import { WebSocketGateway, WebSocketServer, OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-//import { Move } from '../../../chess/moves/Move';
 
 @WebSocketGateway({ cors: true })
 export class ChessGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -26,12 +24,11 @@ export class ChessGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     handleDisconnect(client: Socket) {
         console.log("Player disconnected: " + client.id);
         this.players = this.players.filter((player) => player !== client);
-        
     }
 
     @SubscribeMessage('move')
     handleMove(client: Socket, move: any) {
-        console.log("Move from client");
+        console.log(`Move from client: ${move.fromSquareName} -> ${move.toSquareName}`);
         for (const socket of this.players) {
             if (socket !== client) {
                 socket.emit('move', move);

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { ChessVariant } from '../../../chess/enums/ChessVariant'
-	import type { Move } from '../../../chess/moves/Move';
 	import type { Player } from '../../../chess/players/Player'
 	import { ChessOnline } from '../../../chess/ChessOnline'
 	import { SquareColor } from '../enums/SquareColor';

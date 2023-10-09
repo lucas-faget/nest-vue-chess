@@ -82,7 +82,7 @@
             },
             isLegal(squareName: string): boolean
             {
-                return this.chess.canPlay() && this.chess.controller.isLegalMove(this.fromSquareName, squareName);
+                return this.chess.controller.isLegalMove(this.fromSquareName, squareName) && this.chess.canPlay();
             },
             isFogged(squareName: string): boolean
             {
