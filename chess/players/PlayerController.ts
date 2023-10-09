@@ -1,14 +1,14 @@
 import { PieceName } from "../enums/PieceName";
 import type { Player } from "./Player";
 import { Knight } from "../pieces/Knight";
+import { Bishop } from "../pieces/Bishop";
 import { Rook } from "../pieces/Rook";
 import { Queen } from "../pieces/Queen";
-import type { LegalMoves } from "../moves/LegalMoves";
 import type { Square } from "../Square";
+import type { LegalMoves } from "../moves/LegalMoves";
 import type { Move } from "../moves/Move";
 import type { Chessboard } from "../Chessboard";
 import type { Chess } from "../Chess";
-import { Bishop } from "../pieces/Bishop";
 
 export class PlayerController
 {

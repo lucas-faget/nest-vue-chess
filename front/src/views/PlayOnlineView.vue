@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { ChessVariant } from '../../../chess/enums/ChessVariant'
+	import type { Move } from '../../../chess/moves/Move';
 	import type { Player } from '../../../chess/players/Player'
-	import { ChessLocal } from '../../../chess/ChessLocal'
+	import { ChessOnline } from '../../../chess/ChessOnline'
 	import { SquareColor } from '../enums/SquareColor';
 
 	import Background from '../components/Background.vue'
@@ -9,8 +10,6 @@
 	import PlayerBar from '../components/PlayerBar.vue'
 	import Actions from '../components/Actions.vue'
 	import Options from '../components/Options.vue'
-
-	import io from "socket.io-client";
 
 	export default {
 		components: { Chessboard, Actions, PlayerBar, Options, Background },
@@ -22,26 +21,10 @@
 		},
 		data() {
 			return {
-				socket: io('http://localhost:8000'),
-				chess: new ChessLocal(this.variant),
+				chess: new ChessOnline(this.variant),
 				lightSquareColor: SquareColor.Brown,
 				darkSquareColor: SquareColor.Brown,
 			}
-		},
-		created() {
-			this.socket.on('connect', () => {
-				console.log('Connected to Socket.io server');
-				this.socket.emit('chat message', 'Hello, server!'); // Émettre un message au serveur
-			});
-
-			// Écoutez l'événement "move" pour recevoir des messages du serveur
-			this.socket.on('move', (message) => {
-				console.log('Message from server:', message);
-			});
-
-			this.socket.on('connect_error', (error) => {
-				console.error('Socket.io connection error:', error);
-			});
 		},
 		computed: {
 			bottomRightPlayer(): Player|null {
@@ -90,7 +73,7 @@
 		},
 		watch: {
 			variant(newVariant, oldVariant) {
-				this.chess = new ChessLocal(newVariant);
+				this.chess = new ChessOnline(newVariant);
 			}
 		}
 	}

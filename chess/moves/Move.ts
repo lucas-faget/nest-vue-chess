@@ -1,5 +1,6 @@
 import type { Piece } from "../pieces/Piece";
 import type { Square } from "../Square";
+import { MoveExport } from "./MoveExport";
 
 export class Move
 {
@@ -7,7 +8,8 @@ export class Move
     toSquare: Square;
     capturedPiece: Piece|null;
 
-    constructor(fromSquare: Square, toSquare: Square) {
+    constructor(fromSquare: Square, toSquare: Square)
+    {
         this.fromSquare = fromSquare;
         this.toSquare = toSquare;
         this.capturedPiece = null;
@@ -25,5 +27,13 @@ export class Move
         this.fromSquare.piece = this.toSquare.piece;
         this.fromSquare.piece!.moveCount--;
         this.toSquare.piece = null;
+    }
+
+    exportMove(): MoveExport
+    {
+        return {
+            fromSquareName: this.fromSquare.name,
+            toSquareName: this.toSquare.name
+        }
     }
 }

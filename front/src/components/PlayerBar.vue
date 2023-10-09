@@ -106,14 +106,14 @@
     .left {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
     }
 
     .right {
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
     }
 
     .sphere-and-name {
