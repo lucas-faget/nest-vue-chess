@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ChessVariant } from '../../../chess/enums/ChessVariant'
 	import type { Player } from '../../../chess/players/Player'
-	import { ChessOnline } from '../../../chess/ChessOnline'
+	import { ChessSocket } from '../../../chess/ChessSocket'
 	import { SquareColor } from '../enums/SquareColor';
 
 	import Background from '../components/Background.vue'
@@ -9,6 +9,8 @@
 	import PlayerBar from '../components/PlayerBar.vue'
 	import Actions from '../components/Actions.vue'
 	import Options from '../components/Options.vue'
+	import type { Move } from '../../../chess/moves/Move';
+	import type { MoveExport } from '../../../chess/moves/MoveExport';
 
 	export default {
 		components: { Chessboard, Actions, PlayerBar, Options, Background },
@@ -20,10 +22,13 @@
 		},
 		data() {
 			return {
-				chess: new ChessOnline(this.variant),
+				chess: new ChessSocket(this.variant),
 				lightSquareColor: SquareColor.Brown,
 				darkSquareColor: SquareColor.Brown,
 			}
+		},
+		created() {
+			this.chess.connectSocketListeners();
 		},
 		computed: {
 			bottomRightPlayer(): Player|null {

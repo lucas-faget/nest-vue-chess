@@ -8,7 +8,7 @@ import { Chess } from "./Chess";
 import io from "socket.io-client";
 import { Socket } from "socket.io-client";
 
-export class ChessOnline extends Chess
+export class ChessSocket extends Chess
 {
     socket: Socket;
     socketPlayer: Player;
@@ -18,7 +18,10 @@ export class ChessOnline extends Chess
         this.controller.calculateMoves(this);
 
         this.socket = io('http://localhost:8000');
+    }
 
+    connectSocketListeners(): void
+    {
         this.socket.on('connect', () => {
             console.log('Connected to Socket.io server');
         });
@@ -27,13 +30,13 @@ export class ChessOnline extends Chess
             console.error('Socket.io connection error:', error);
         });
 
-        this.socket.on('assignPlayer', (index: number) => {
-            this.setSocketPlayer(this.players[index])
-            console.log('I play ', this.socketPlayer.name);
+        this.socket.on('startGame', () => {
+            console.log('Game started !');
         });
 
-        this.socket.on('startGame', (color: string) => {
-            console.log('Game started !');
+        this.socket.on('assignPlayer', (index: number) => {
+            this.setSocketPlayer(this.players[index]);
+            this.playerIndexInFront = index;
         });
 
         this.socket.on('move', (moveExport: MoveExport) => {

@@ -66,11 +66,12 @@ export abstract class Chess
     {
         if (move.capturedPiece) {
             for (const player of this.players) {
-                if (player.color === move.capturedPiece.color) {
+                if (player === this.controller.player) {
                     if (isUndoing) {
                         player.removeCapturedPiece(move.capturedPiece.getName());
                     } else {
                         player.addCapturedPiece(move.capturedPiece.getName());
+                        console.log(player.capturedPieces)
                     }
                 }
             }

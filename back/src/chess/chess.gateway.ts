@@ -1,6 +1,8 @@
 import { WebSocketGateway, WebSocketServer, OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
+const playerCount: number = 2;
+
 @WebSocketGateway({ cors: true })
 export class ChessGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer() server: Server;
@@ -15,8 +17,9 @@ export class ChessGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
         this.players.push(client);
 
         if (this.players.length === 2) {
-            this.players[0].emit('assignPlayer', 0);
-            this.players[1].emit('assignPlayer', 1);
+            let oneOrZero = Math.floor(Math.random() * playerCount)
+            this.players[0].emit('assignPlayer', oneOrZero);
+            this.players[1].emit('assignPlayer', 1 - oneOrZero);
             this.server.emit('startGame');
         }
     }
