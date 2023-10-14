@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-//import type { SerialisedMove } from '../../../../chess/moves/SerialisedMove';
+import type { SerialisedMove } from './SerialisedMove';
 
 export class Room
 {
@@ -36,7 +36,7 @@ export class Room
         });
     }
 
-    sendMove(client: Socket, move: any): void
+    sendMove(client: Socket, move: SerialisedMove): void
     {
         for (const player of this.players) {
             if (player !== client) {
