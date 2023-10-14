@@ -1,6 +1,6 @@
 <script lang="ts">
     import { routesPlay } from '../router/routes/routesPlay'
-    import { routesOnline } from '../router/routes/routesOnline'
+    import { routesRoom } from '../router/routes/routesRoom'
     import MobileNavToggle from './MobileNavToggle.vue';
     import Dropdown from './Dropdown.vue';
     import DropdownItems from './DropdownItems.vue';
@@ -14,7 +14,7 @@
                     text: route.text,
                     path: route.path
                 })),
-                menuOnlineItems: routesOnline.map((route) => ({
+                menuPrivateItems: routesRoom.map((route) => ({
                     text: route.text,
                     path: route.path
                 })),
@@ -92,7 +92,7 @@
                     <Dropdown>
                         <!-- Dropdown Toggle Slot -->
                         <template #dropdown-toggle>
-                            <span class="nav-item">Online</span>
+                            <span class="nav-item">Private room</span>
                         </template>
 
                         <!-- Dropdown Content Slot -->
@@ -100,7 +100,7 @@
                             <DropdownItems>
                                 <!-- Dropdown Items Slot -->
                                 <template #dropdown-items>
-                                    <template v-for="(item, index) in menuOnlineItems" :key="index">
+                                    <template v-for="(item, index) in menuPrivateItems" :key="index">
                                         <DropdownItem>
                                             <!-- Dropdown Item Slot -->
                                             <template #dropdown-item>

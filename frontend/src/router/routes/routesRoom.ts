@@ -7,7 +7,7 @@ function generateAlphanumericString(length: number) {
     return result;
 }
 
-export const routesOnline = [
+export const routesRoom = [
     {
         path: '/room',
         text: 'Standard',
