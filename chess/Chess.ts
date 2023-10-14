@@ -71,7 +71,6 @@ export abstract class Chess
                         player.removeCapturedPiece(move.capturedPiece.getName());
                     } else {
                         player.addCapturedPiece(move.capturedPiece.getName());
-                        console.log(player.capturedPieces)
                     }
                 }
             }

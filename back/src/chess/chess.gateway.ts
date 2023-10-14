@@ -1,12 +1,12 @@
 import { WebSocketGateway, WebSocketServer, OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-
-const playerCount: number = 2;
+import { Room } from './types/Room';
+import { MoveData } from './types/MoveData';
 
 @WebSocketGateway({ cors: true })
 export class ChessGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer() server: Server;
-    players: Socket[] = [];
+    rooms: Map<string, Room> = new Map();
 
     afterInit(server: Server) {
         console.log('Socket.IO is ready');
@@ -14,28 +14,39 @@ export class ChessGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
 
     handleConnection(client: Socket) {
         console.log("Player connected: " + client.id);
-        this.players.push(client);
-
-        if (this.players.length === 2) {
-            let oneOrZero = Math.floor(Math.random() * playerCount)
-            this.players[0].emit('assignPlayer', oneOrZero);
-            this.players[1].emit('assignPlayer', 1 - oneOrZero);
-            this.server.emit('startGame');
-        }
     }
 
     handleDisconnect(client: Socket) {
         console.log("Player disconnected: " + client.id);
-        this.players = this.players.filter((player) => player !== client);
+    }
+
+    @SubscribeMessage('join')
+    handleJoin(client: Socket, roomId: string) {
+        let room: Room|null = this.rooms.has(roomId) ? this.rooms.get(roomId) : null;
+
+        if (room) {
+            if (!room.isFull()) {
+                room.addPlayer(client);
+                if (room.isFull()) {
+                    room.startGame();
+                }
+            }
+        } else {
+            room = new Room(2);
+            room.addPlayer(client);
+            this.rooms.set(roomId, room);
+        }
     }
 
     @SubscribeMessage('move')
-    handleMove(client: Socket, move: any) {
-        console.log(`Move from client: ${move.fromSquareName} -> ${move.toSquareName}`);
-        for (const socket of this.players) {
-            if (socket !== client) {
-                socket.emit('move', move);
-            }
+    handleMove(client: Socket, data: MoveData) {
+        const roomId = data.roomId;
+        const serialisedMove = data.move;
+        console.log(`Move from client: ${serialisedMove.fromSquareName} -> ${serialisedMove.toSquareName}`);
+
+        let room: Room|null = this.rooms.has(roomId) ? this.rooms.get(roomId) : null;
+        if (room) {
+            room.sendMove(client, serialisedMove);
         }
     }
 }

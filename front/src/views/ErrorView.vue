@@ -30,7 +30,7 @@
 
 	.code, .message {
 		color: var(--color-white);
-		padding: 10px 20px;
+		padding-inline: 20px;
 		font-size: 35px;
 	}
 

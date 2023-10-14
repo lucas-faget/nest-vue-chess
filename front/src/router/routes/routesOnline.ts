@@ -1,14 +1,19 @@
-import { ChessVariant } from '../../../../chess/enums/ChessVariant';
-import PlayOnlineView from '../../views/PlayOnlineView.vue'
+function generateAlphanumericString(length: number) {
+    const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
 
 export const routesOnline = [
     {
-        path: '/online',
-        name: 'online',
+        path: '/room',
         text: 'Standard',
-        component: PlayOnlineView,
-        props: {
-            variant: ChessVariant.Standard
-        }
-    }
+        redirect: () => {
+            const roomId = generateAlphanumericString(8);
+            return `/${roomId}`;
+        },
+    },
 ];

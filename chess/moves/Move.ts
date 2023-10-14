@@ -1,6 +1,6 @@
 import type { Piece } from "../pieces/Piece";
 import type { Square } from "../Square";
-import { MoveExport } from "./MoveExport";
+import { SerialisedMove } from "./SerialisedMove";
 
 export class Move
 {
@@ -29,7 +29,7 @@ export class Move
         this.toSquare.piece = null;
     }
 
-    exportMove(): MoveExport
+    serialiseMove(): SerialisedMove
     {
         return {
             fromSquareName: this.fromSquare.name,

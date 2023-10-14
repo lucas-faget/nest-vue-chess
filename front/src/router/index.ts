@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from './routes'
 import HomeView from '../views/HomeView.vue'
+import PlayOnlineView from '../views/PlayOnlineView.vue'
 import ErrorView from '../views/ErrorView.vue'
 
 const router = createRouter({
@@ -12,6 +13,14 @@ const router = createRouter({
 			component: HomeView
 		},
 		...routes,
+		{
+			path: '/:roomId([A-Za-z0-9]{8})',
+			name: 'online',
+			component: PlayOnlineView,
+			props: (route) => ({
+				roomId: route.params.roomId,
+			}),
+		},
 		{
 			path: '/:pathMatch(.*)*',
 			name: '404',

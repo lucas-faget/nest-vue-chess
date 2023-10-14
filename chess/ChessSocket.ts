@@ -1,6 +1,6 @@
 import type { ChessVariant } from "./enums/ChessVariant";
 import type { Player } from "./players/Player";
-import { MoveExport } from "./moves/MoveExport";
+import { SerialisedMove } from "./moves/SerialisedMove";
 import type { Move } from "./moves/Move";
 import type { JsonObject } from "./types/JsonObject";
 import { Chess } from "./Chess";
@@ -10,13 +10,15 @@ import { Socket } from "socket.io-client";
 
 export class ChessSocket extends Chess
 {
+    roomId: string;
     socket: Socket;
     socketPlayer: Player;
 
-    constructor(variant: ChessVariant, customJson?: JsonObject, players?: Player[]) {
+    constructor(variant: ChessVariant, roomId: string, customJson?: JsonObject, players?: Player[]) {
         super(variant, customJson, players);
         this.controller.calculateMoves(this);
 
+        this.roomId = roomId;
         this.socket = io('http://localhost:8000');
     }
 
@@ -39,9 +41,9 @@ export class ChessSocket extends Chess
             this.playerIndexInFront = index;
         });
 
-        this.socket.on('move', (moveExport: MoveExport) => {
-            console.log(`Move from server: ${moveExport.fromSquareName} -> ${moveExport.toSquareName}`);
-            let move: Move|null = this.controller.getLegalMove(moveExport.fromSquareName, moveExport.toSquareName);
+        this.socket.on('move', (serialisedMove: SerialisedMove) => {
+            console.log(`Move from server: ${serialisedMove.fromSquareName} -> ${serialisedMove.toSquareName}`);
+            let move: Move|null = this.controller.getLegalMove(serialisedMove.fromSquareName, serialisedMove.toSquareName);
             if (move) {
                 this.saveMove(move, false);
             }
@@ -61,7 +63,10 @@ export class ChessSocket extends Chess
     saveMove(move: Move, emitToServer: boolean = true): void
     {
         if (emitToServer) {
-            this.socket.emit('move', move.exportMove());
+            this.socket.emit('move', {
+                roomId: this.roomId,
+                move: move.serialiseMove()
+            });
         }
 
         move.carryoutMove();

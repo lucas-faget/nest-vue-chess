@@ -9,25 +9,25 @@
 	import PlayerBar from '../components/PlayerBar.vue'
 	import Actions from '../components/Actions.vue'
 	import Options from '../components/Options.vue'
-	import type { Move } from '../../../chess/moves/Move';
-	import type { MoveExport } from '../../../chess/moves/MoveExport';
 
 	export default {
 		components: { Chessboard, Actions, PlayerBar, Options, Background },
 		props: {
-			variant: {
-				type: String as () => ChessVariant,
-				default: ChessVariant.Standard
+			roomId: {
+				type: String,
+				required: true
 			}
 		},
 		data() {
 			return {
-				chess: new ChessSocket(this.variant),
+				chess: new ChessSocket(ChessVariant.Standard, this.roomId),
 				lightSquareColor: SquareColor.Brown,
 				darkSquareColor: SquareColor.Brown,
 			}
 		},
 		created() {
+			console.log(this.roomId);
+			this.chess.socket.emit('join', this.roomId);
 			this.chess.connectSocketListeners();
 		},
 		computed: {
@@ -77,7 +77,7 @@
 		},
 		watch: {
 			variant(newVariant, oldVariant) {
-				this.chess = new ChessOnline(newVariant);
+				this.chess = new ChessSocket(newVariant, this.roomId);
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-export interface MoveExport {
+export interface SerialisedMove {
     fromSquareName: string,
     toSquareName: string
 }
