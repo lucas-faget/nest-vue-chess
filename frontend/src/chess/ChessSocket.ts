@@ -6,20 +6,22 @@ import type { JsonObject } from "./types/JsonObject";
 import { Chess } from "./Chess";
 
 import io from "socket.io-client";
-import { Socket } from "socket.io-client";
+import type { Socket } from "socket.io-client";
 
 export class ChessSocket extends Chess
 {
     roomId: string;
     socket: Socket;
-    socketPlayer: Player;
+    socketPlayer: Player|null;
 
     constructor(variant: ChessVariant, roomId: string, customJson?: JsonObject, players?: Player[]) {
         super(variant, customJson, players);
         this.controller.calculateMoves(this);
 
         this.roomId = roomId;
-        this.socket = io('http://localhost:8000');
+        //this.socket = io('http://localhost:8000');
+        this.socket = io('https://api-chess-lucas-faget.netlify.app:8000');
+        this.socketPlayer = null;
     }
 
     connectSocketListeners(): void
