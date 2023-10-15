@@ -20,7 +20,7 @@ export class ChessSocket extends Chess
 
         this.roomId = roomId;
         //this.socket = io('http://localhost:8000');
-        this.socket = io('https://api-chess-lucas-faget.netlify.app:8000');
+        this.socket = io('https://api-chess-lucas-faget.netlify.app:3000');
         this.socketPlayer = null;
     }
 
