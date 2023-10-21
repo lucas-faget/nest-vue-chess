@@ -4,4 +4,3 @@ export interface ChessboardFEN {
     castlingRights: string,
     enPassantTarget: string
 }
-  

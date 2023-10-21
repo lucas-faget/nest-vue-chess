@@ -3,6 +3,7 @@ import type { PlayerColor } from "./enums/PlayerColor";
 import { PieceName } from "./enums/PieceName";
 import { Square } from "./Square";
 import type { JsonObject } from "./types/JsonObject";
+import type { ChessboardFEN } from "./types/ChessboardFen";
 
 export class Chessboard
 {
@@ -77,5 +78,37 @@ export class Chessboard
         }
 
         return null;
+    }
+
+    getPositionString(): string
+    {
+        let position: string = '';
+        for (const [row, rank] of this.ranks.entries()) {
+            let emptySquareCount: number = 0;
+            for (const [col, file] of this.files.entries()) {
+                let square: Square|null = this.getSquareByName(file + rank);
+                if (square?.isEmpty()) {
+                    emptySquareCount++;
+                } else {
+                    position += emptySquareCount > 0 ? emptySquareCount.toString() : '';
+                    emptySquareCount = 0;
+                    position += square?.getPiece() ?? '';
+                }
+            }
+            position += emptySquareCount > 0 ? emptySquareCount.toString() : '';
+            position += row !== this.ranks.length - 1 ? '/' : '';
+        }
+
+        return position;
+    }
+
+    toFEN(): ChessboardFEN
+    {
+        return {
+            position: this.getPositionString(),
+            sideToMove: 'w',
+            castlingRights: 'KQkq',
+            enPassantTarget: '-'
+        }
     }
 }
