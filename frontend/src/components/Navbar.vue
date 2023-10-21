@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { routesPlay } from '../router/routes/routesPlay'
-    import { routesRoom } from '../router/routes/routesRoom'
+    import { routesPlayLocally } from '../router/routes/routesPlayLocally'
+    import { routesPrivateGame } from '../router/routes/routesPrivateGame'
+    import { routesLearn } from '../router/routes/routesLearn'
     import MobileNavToggle from './MobileNavToggle.vue';
     import Dropdown from './Dropdown.vue';
     import DropdownItems from './DropdownItems.vue';
@@ -10,11 +11,15 @@
         components: { MobileNavToggle, Dropdown, DropdownItems, DropdownItem },
         data() {
             return {
-                menuPlayItems: routesPlay.map((route) => ({
+                menuPlayLocallyItems: routesPlayLocally.map((route) => ({
                     text: route.text,
                     path: route.path
                 })),
-                menuPrivateItems: routesRoom.map((route) => ({
+                menuPrivateGameItems: routesPrivateGame.map((route) => ({
+                    text: route.text,
+                    path: route.path
+                })),
+                menuLearnItems: routesLearn.map((route) => ({
                     text: route.text,
                     path: route.path
                 })),
@@ -64,7 +69,7 @@
                     <Dropdown>
                         <!-- Dropdown Toggle Slot -->
                         <template #dropdown-toggle>
-                            <span class="nav-item">Play</span>
+                            <span class="nav-item">Play locally</span>
                         </template>
 
                         <!-- Dropdown Content Slot -->
@@ -72,7 +77,7 @@
                             <DropdownItems>
                                 <!-- Dropdown Items Slot -->
                                 <template #dropdown-items>
-                                    <template v-for="(item, index) in menuPlayItems" :key="index">
+                                    <template v-for="(item, index) in menuPlayLocallyItems" :key="index">
                                         <DropdownItem>
                                             <!-- Dropdown Item Slot -->
                                             <template #dropdown-item>
@@ -92,7 +97,7 @@
                     <Dropdown>
                         <!-- Dropdown Toggle Slot -->
                         <template #dropdown-toggle>
-                            <span class="nav-item">Private room</span>
+                            <span class="nav-item">Play a friend</span>
                         </template>
 
                         <!-- Dropdown Content Slot -->
@@ -100,7 +105,7 @@
                             <DropdownItems>
                                 <!-- Dropdown Items Slot -->
                                 <template #dropdown-items>
-                                    <template v-for="(item, index) in menuPrivateItems" :key="index">
+                                    <template v-for="(item, index) in menuPrivateGameItems" :key="index">
                                         <DropdownItem>
                                             <!-- Dropdown Item Slot -->
                                             <template #dropdown-item>
@@ -117,11 +122,31 @@
                 </li>
 
                 <li class="nav-li">
-                    <router-link to="/learn">
-                        <li class="nav-item">
-                            learn
-                        </li>
-                    </router-link>
+                    <Dropdown>
+                        <!-- Dropdown Toggle Slot -->
+                        <template #dropdown-toggle>
+                            <span class="nav-item">Learn</span>
+                        </template>
+
+                        <!-- Dropdown Content Slot -->
+                        <template #dropdown-content>
+                            <DropdownItems>
+                                <!-- Dropdown Items Slot -->
+                                <template #dropdown-items>
+                                    <template v-for="(item, index) in menuLearnItems" :key="index">
+                                        <DropdownItem>
+                                            <!-- Dropdown Item Slot -->
+                                            <template #dropdown-item>
+                                                <router-link :to="item.path">
+                                                    {{ item.text }}
+                                                </router-link>
+                                            </template>
+                                        </DropdownItem>
+                                    </template>
+                                </template>
+                            </DropdownItems>
+                        </template>
+                    </Dropdown>
                 </li>
             </ul>
         </div>

@@ -1,12 +1,12 @@
 import { ChessVariant } from '../../chess/enums/ChessVariant';
-import PlayLocalView from '../../views/PlayLocalView.vue'
+import PlayLocallyView from '../../views/PlayLocallyView.vue'
 
-export const routesPlay = [
+export const routesPlayLocally = [
     {
         path: '/play',
         name: 'play',
         text: 'Standard',
-        component: PlayLocalView,
+        component: PlayLocallyView,
         props: {
             variant: ChessVariant.Standard
         }
@@ -15,7 +15,7 @@ export const routesPlay = [
         path: '/play/960',
         name: 'play-960',
         text: 'Fischer Random Chess',
-        component: PlayLocalView,
+        component: PlayLocallyView,
         props: {
 			variant: ChessVariant.FischerRandom
 		}
@@ -24,7 +24,7 @@ export const routesPlay = [
         path: '/play/fog',
         name: 'play-fog',
         text: 'Fog Of War Chess',
-        component: PlayLocalView,
+        component: PlayLocallyView,
         props: {
 			variant: ChessVariant.FogOfWar
 		}
@@ -33,7 +33,7 @@ export const routesPlay = [
         path: '/play/4player',
         name: 'play-4player',
         text: 'Four Player Chess',
-        component: PlayLocalView,
+        component: PlayLocallyView,
         props: {
 			variant: ChessVariant.FourPlayer
 		}
