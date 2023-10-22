@@ -6,12 +6,12 @@
 
 	import Background from '../components/Background.vue'
 	import Chessboard from '../components/Chessboard.vue'
-	import PlayerBar from '../components/PlayerBar.vue'
+	import PlayerCard from '../components/PlayerCard.vue'
 	import Actions from '../components/Actions.vue'
 	import Options from '../components/Options.vue'
 
 	export default {
-		components: { Chessboard, Actions, PlayerBar, Options, Background },
+		components: { Chessboard, Actions, PlayerCard, Options, Background },
 		props: {
 			roomId: {
 				type: String,
@@ -87,7 +87,7 @@
 	<div class="chess">
 		<div>
 			<div>
-				<PlayerBar 
+				<PlayerCard
 					:leftPlayer="topLeftPlayer"
 					:rightPlayer="topRightPlayer"
 					:currentPlayer="currentPlayer"
@@ -95,14 +95,14 @@
 				/>
 			</div>
 			<div class="chessboard">
-				<Chessboard 
+				<Chessboard
 					:chess="chess"
 					:lightSquareColor="lightSquareColor"
 					:darkSquareColor="darkSquareColor"
 				/>
 			</div>
 			<div>
-				<PlayerBar 
+				<PlayerCard
 					:leftPlayer="bottomLeftPlayer"
 					:rightPlayer="bottomRightPlayer"
 					:currentPlayer="currentPlayer"

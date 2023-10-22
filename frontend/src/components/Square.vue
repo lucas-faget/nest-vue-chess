@@ -27,6 +27,7 @@
             }
 		},
         computed: {
+            ...mapGetters(['getPieceImageSrc']),
             bgColor(): string {
                 return this.square?.isDark() ? 'square-dark-' + this.darkSquareColor : 'square-light-' + this.lightSquareColor;
             },
@@ -39,8 +40,7 @@
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'contain',
                 } : '';
-            },
-            ...mapGetters(['getPieceImageSrc'])
+            }
         }
     }
 </script>

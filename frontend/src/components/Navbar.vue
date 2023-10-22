@@ -265,7 +265,7 @@
         .nav-ul
         {
             position: relative;
-            left: 100px;
+            left: 10vw;
             flex-direction: column;
             justify-content: center;
         }
