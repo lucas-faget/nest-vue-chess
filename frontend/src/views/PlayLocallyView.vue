@@ -26,40 +26,17 @@
 			}
 		},
 		computed: {
-			bottomRightPlayer(): Player|null {
-				switch (this.chess.variant) {
-					case ChessVariant.FourPlayer:
-						return this.chess.players[this.chess.playerIndexInFront];
-					default:
-						return null;
-				}
+			bottomPlayer(): Player {
+				return this.chess.players[this.chess.playerIndexInFront];
 			},
-			bottomLeftPlayer(): Player|null {
-				switch (this.chess.variant) {
-					case ChessVariant.FourPlayer:
-						return this.chess.players[(this.chess.playerIndexInFront + 1) % this.chess.players.length];
-					default:
-						return this.chess.players[this.chess.playerIndexInFront];
-				}
+			topPlayer(): Player {
+				return this.chess.players[(this.chess.playerIndexInFront + 1) % this.chess.players.length];
 			},
-			topLeftPlayer(): Player|null {
-				switch (this.chess.variant) {
-					case ChessVariant.FourPlayer:
-						return this.chess.players[(this.chess.playerIndexInFront + 2) % this.chess.players.length];
-					default:
-						return this.chess.players[(this.chess.playerIndexInFront + 1) % this.chess.players.length];
-				}
+			isBottomPlayerMoving(): boolean {
+				return this.chess.isCurrentMoveTheLast() && this.chess.controller.player === this.bottomPlayer;
 			},
-			topRightPlayer(): Player|null {
-				switch (this.chess.variant) {
-					case ChessVariant.FourPlayer:
-						return this.chess.players[(this.chess.playerIndexInFront + 3) % this.chess.players.length];
-					default:
-						return null;
-				}
-			},
-			currentPlayer(): Player | null {
-				return this.chess.isCurrentMoveTheLast() ? this.chess.controller.player : null;
+			isTopPlayerMoving(): boolean {
+				return this.chess.isCurrentMoveTheLast() && this.chess.controller.player === this.topPlayer;
 			}
 		},
 		methods: {
@@ -83,9 +60,8 @@
 		<div>
 			<div>
 				<PlayerCard
-					:leftPlayer="topLeftPlayer"
-					:rightPlayer="topRightPlayer"
-					:currentPlayer="currentPlayer"
+					:player="topPlayer"
+					:isPlayerMoving="isTopPlayerMoving"
 					style="border-radius: 10px 10px 0 0;"
 				/>
 			</div>
@@ -98,16 +74,15 @@
 			</div>
 			<div>
 				<PlayerCard
-					:leftPlayer="bottomLeftPlayer"
-					:rightPlayer="bottomRightPlayer"
-					:currentPlayer="currentPlayer"
+					:player="bottomPlayer"
+					:isPlayerMoving="isBottomPlayerMoving"
 				/>
 			</div>
 			<div>
 				<Actions :chess="chess" />
 			</div>
 			<div>
-				<Options 
+				<Options
 					:lightSquareColor="lightSquareColor"
 					:darkSquareColor="darkSquareColor"
 					@change-light-square-color="setLightSquareColor"
