@@ -2,6 +2,7 @@
     import { PlayerColor } from '../chess/enums/PlayerColor';
     import type { PieceName } from '../chess/enums/PieceName';
     import type { Player } from '../chess/players/Player';
+    import { mapGetters } from 'vuex';
 
     export default {
         props: {
@@ -36,12 +37,10 @@
                 } else {
                     return null;
                 }
-            }
+            },
+            ...mapGetters(['getPieceImageSrc'])
         },
         methods: {
-            pieceImageSrc(pieceName: string, color: PlayerColor): string {
-                return `/assets/piece/${color}/${pieceName}.svg`;
-            },
             contrastColor(color: PlayerColor): PlayerColor {
                 switch (color) {
                     case PlayerColor.White:
@@ -70,7 +69,7 @@
             </div>
             <div v-if="allCapturedPieces && allCapturedPieces.length > 0" :class="['captured-pieces', 'player-color-' + leftPlayer.color]">
                 <div v-for="(capturedPiecesGroup, index) in allCapturedPieces" :key="index" class="captured-piece-group">
-                    <img v-for="(pieceName, index2) in capturedPiecesGroup" :key="index2" class="piece-image" :src="pieceImageSrc(pieceName, contrastColor(leftPlayer.color))" alt="piece" />
+                    <img v-for="(pieceName, index2) in capturedPiecesGroup" :key="index2" class="piece-image" :src="getPieceImageSrc(contrastColor(leftPlayer.color), pieceName)" alt="piece" />
                 </div>
             </div>
         </div>
@@ -84,7 +83,7 @@
             </div>
             <div v-if="allCapturedPieces && allCapturedPieces.length > 0" :class="['captured-pieces', 'player-color-' + rightPlayer.color]">
                 <div v-for="(capturedPiecesGroup, index) in allCapturedPieces" :key="index" class="captured-piece-group">
-                    <img v-for="(pieceName, index2) in capturedPiecesGroup" :key="index2" class="piece-image" :src="pieceImageSrc(pieceName, contrastColor(rightPlayer.color))" alt="piece" />
+                    <img v-for="(pieceName, index2) in capturedPiecesGroup" :key="index2" class="piece-image" :src="getPieceImageSrc(contrastColor(rightPlayer.color), pieceName)" alt="piece" />
                 </div>
             </div>
         </div>

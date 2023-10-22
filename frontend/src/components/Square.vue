@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Square } from '../chess/Square';
     import { SquareColor } from '../enums/SquareColor';
+    import { mapGetters } from 'vuex';
 
     export default {
         props: {
@@ -34,11 +35,12 @@
             },
             bgPiece() {
                 return this.square && !this.square.isEmpty() ? {
-                    backgroundImage: this.color ? `url(/assets/piece/${this.color}/${this.square.getPiece()?.getName()}.svg)` : 'none',
+                    backgroundImage: this.color ? `url(${this.getPieceImageSrc(this.color, this.square.getPiece()?.getName())})` : 'none',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'contain',
                 } : '';
-            }
+            },
+            ...mapGetters(['getPieceImageSrc'])
         }
     }
 </script>
