@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ChessVariant } from '../chess/enums/ChessVariant'
 	import type { Player } from '../chess/players/Player'
-	import { ChessSocket } from '../chess/ChessSocket'
+	import { ChessSocket } from '../chess/ChessSocket';
 	import { SquareColor } from '../enums/SquareColor';
 
 	import Background from '../components/Background.vue'
@@ -31,43 +31,17 @@
 			this.chess.connectSocketListeners();
 		},
 		computed: {
-			bottomRightPlayer(): Player|null {
-				switch (this.chess.variant) {
-					case ChessVariant.FourPlayer:
-						return this.chess.players[this.chess.playerIndexInFront];
-					default:
-						return null;
-				}
+			bottomPlayer(): Player {
+				return this.chess.players[this.chess.playerIndexInFront];
 			},
-			bottomLeftPlayer(): Player|null {
-				switch (this.chess.variant) {
-					case ChessVariant.FourPlayer:
-						return this.chess.players[(this.chess.playerIndexInFront + 1) % this.chess.players.length];
-					default:
-						return this.chess.players[this.chess.playerIndexInFront];
-				}
-			},
-			topLeftPlayer(): Player|null {
-				switch (this.chess.variant) {
-					case ChessVariant.FourPlayer:
-						return this.chess.players[(this.chess.playerIndexInFront + 2) % this.chess.players.length];
-					default:
-						return this.chess.players[(this.chess.playerIndexInFront + 1) % this.chess.players.length];
-				}
-			},
-			topRightPlayer(): Player|null {
-				switch (this.chess.variant) {
-					case ChessVariant.FourPlayer:
-						return this.chess.players[(this.chess.playerIndexInFront + 3) % this.chess.players.length];
-					default:
-						return null;
-				}
-			},
-			currentPlayer(): Player | null {
-				return this.chess.isCurrentMoveTheLast() ? this.chess.controller.player : null;
+			topPlayer(): Player {
+				return this.chess.players[(this.chess.playerIndexInFront + 1) % this.chess.players.length];
 			}
 		},
 		methods: {
+			isPlayerMoving(player: Player): boolean {
+                return this.chess.isCurrentMoveTheLast() && this.chess.controller.player === player;
+            },
 			setLightSquareColor(squareColor: SquareColor) {
 				this.lightSquareColor = squareColor;
 			},
@@ -76,7 +50,7 @@
 			}
 		},
 		watch: {
-			variant(newVariant, oldVariant) {
+			variant(newVariant: ChessVariant, oldVariant: ChessVariant) {
 				this.chess = new ChessSocket(newVariant, this.roomId);
 			}
 		}
@@ -86,14 +60,11 @@
 <template>
 	<div class="chess">
 		<div>
-			<div>
-				<PlayerCard
-					:leftPlayer="topLeftPlayer"
-					:rightPlayer="topRightPlayer"
-					:currentPlayer="currentPlayer"
-					style="border-radius: 10px 10px 0 0;"
-				/>
-			</div>
+			<PlayerCard
+				:player="topPlayer"
+				:isPlayerMoving="isPlayerMoving(topPlayer)"
+				style="border-radius: 10px 10px 0 0;"
+			/>
 			<div class="chessboard">
 				<Chessboard
 					:chess="chess"
@@ -101,25 +72,18 @@
 					:darkSquareColor="darkSquareColor"
 				/>
 			</div>
-			<div>
-				<PlayerCard
-					:leftPlayer="bottomLeftPlayer"
-					:rightPlayer="bottomRightPlayer"
-					:currentPlayer="currentPlayer"
-				/>
-			</div>
-			<div>
-				<Actions :chess="chess" />
-			</div>
-			<div>
-				<Options 
-					:lightSquareColor="lightSquareColor"
-					:darkSquareColor="darkSquareColor"
-					@change-light-square-color="setLightSquareColor"
-					@change-dark-square-color="setDarkSquareColor"
-					style="border-radius: 0 0 10px 10px;"
-				/>
-			</div>
+			<PlayerCard
+				:player="bottomPlayer"
+				:isPlayerMoving="isPlayerMoving(bottomPlayer)"
+			/>
+			<Actions :chess="chess" />
+			<Options
+				:lightSquareColor="lightSquareColor"
+				:darkSquareColor="darkSquareColor"
+				@change-light-square-color="setLightSquareColor"
+				@change-dark-square-color="setDarkSquareColor"
+				style="border-radius: 0 0 10px 10px;"
+			/>
 		</div>
 	</div>
 </template>
@@ -142,6 +106,6 @@
 	}
 
 	.chessboard {
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 1/1;
 	}
 </style>
