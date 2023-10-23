@@ -29,17 +29,20 @@
 			bottomPlayer(): Player {
 				return this.chess.players[this.chess.playerIndexInFront];
 			},
-			topPlayer(): Player {
+			leftPlayer(): Player {
 				return this.chess.players[(this.chess.playerIndexInFront + 1) % this.chess.players.length];
 			},
-			isBottomPlayerMoving(): boolean {
-				return this.chess.isCurrentMoveTheLast() && this.chess.controller.player === this.bottomPlayer;
+            topPlayer(): Player {
+				return this.chess.players[(this.chess.playerIndexInFront + 2) % this.chess.players.length];
 			},
-			isTopPlayerMoving(): boolean {
-				return this.chess.isCurrentMoveTheLast() && this.chess.controller.player === this.topPlayer;
+			rightPlayer(): Player {
+				return this.chess.players[(this.chess.playerIndexInFront + 3) % this.chess.players.length];
 			}
 		},
 		methods: {
+            isPlayerMoving(player: Player): boolean {
+                return this.chess.isCurrentMoveTheLast() && this.chess.controller.player === player;
+            },
 			setLightSquareColor(squareColor: SquareColor) {
 				this.lightSquareColor = squareColor;
 			},
@@ -58,38 +61,45 @@
 <template>
 	<div class="chess">
 		<div>
-			<div>
-				<PlayerCard
-					:player="topPlayer"
-					:isPlayerMoving="isTopPlayerMoving"
-					style="border-radius: 10px 10px 0 0;"
-				/>
-			</div>
 			<div class="chessboard">
 				<Chessboard
 					:chess="chess"
 					:lightSquareColor="lightSquareColor"
 					:darkSquareColor="darkSquareColor"
 				/>
+				<!-- <div class="chessboard-corner bottom-right">
+					<PlayerCard
+						:player="bottomPlayer"
+						:isPlayerMoving="isPlayerMoving(bottomPlayer)"
+					/>
+				</div>
+				<div class="chessboard-corner bottom-left">
+					<PlayerCard
+						:player="leftPlayer"
+						:isPlayerMoving="isPlayerMoving(leftPlayer)"
+					/>
+				</div>
+				<div class="chessboard-corner top-left">
+					<PlayerCard
+						:player="topPlayer"
+						:isPlayerMoving="isPlayerMoving(topPlayer)"
+					/>
+				</div>
+				<div class="chessboard-corner top-right">
+					<PlayerCard
+						:player="rightPlayer"
+						:isPlayerMoving="isPlayerMoving(rightPlayer)"
+					/>
+				</div> -->
 			</div>
-			<div>
-				<PlayerCard
-					:player="bottomPlayer"
-					:isPlayerMoving="isBottomPlayerMoving"
-				/>
-			</div>
-			<div>
-				<Actions :chess="chess" />
-			</div>
-			<div>
-				<Options
-					:lightSquareColor="lightSquareColor"
-					:darkSquareColor="darkSquareColor"
-					@change-light-square-color="setLightSquareColor"
-					@change-dark-square-color="setDarkSquareColor"
-					style="border-radius: 0 0 10px 10px;"
-				/>
-			</div>
+			<Actions :chess="chess" />
+			<Options
+				:lightSquareColor="lightSquareColor"
+				:darkSquareColor="darkSquareColor"
+				@change-light-square-color="setLightSquareColor"
+				@change-dark-square-color="setDarkSquareColor"
+				style="border-radius: 0 0 10px 10px;"
+			/>
 		</div>
 	</div>
 </template>
@@ -112,6 +122,32 @@
 	}
 
 	.chessboard {
-        aspect-ratio: 1 / 1;
+		position: relative;
+        aspect-ratio: 1/1;
+	}
+
+	.chessboard-corner {
+		position: absolute;
+		aspect-ratio: 1/1;
+	}
+
+	.bottom-right {
+		bottom: 0;
+		right: 0;
+	}
+
+	.bottom-left {
+		bottom: 0;
+		left: 0;
+	}
+
+	.top-left {
+		top: 0;
+		left: 0;
+	}
+
+	.top-right {
+		top: 0;
+		right: 0;
 	}
 </style>

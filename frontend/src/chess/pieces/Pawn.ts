@@ -107,7 +107,7 @@ export class Pawn extends Piece
             return [Direction.DownLeft, Direction.DownRight];
         } else if (Chess.areEqualCoordinates(direction, Direction.Right)) {
             return [Direction.UpRight, Direction.DownRight];
-        } else if (Chess.areEqualCoordinates(direction, Direction.Right)) {
+        } else if (Chess.areEqualCoordinates(direction, Direction.Left)) {
             return [Direction.UpLeft, Direction.DownLeft];
         } else {
             return [];

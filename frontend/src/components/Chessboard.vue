@@ -110,7 +110,6 @@
 
 <style scoped>
     .chessboard {
-        background: #000;
         display: grid;
     }
 </style>

@@ -68,8 +68,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 60px;
-        padding-inline: 30px;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding-block: 10px;
+        padding-inline: 1vw;
         font-size: 20px;
     }
 
