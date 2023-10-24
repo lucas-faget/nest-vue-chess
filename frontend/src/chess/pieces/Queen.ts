@@ -1,6 +1,6 @@
 import type { Position } from "../coordinates/Position";
-import type { PlayerColor } from "../enums/PlayerColor";
-import { PieceName } from "../enums/PieceName";
+import type { PlayerColor } from "../types/PlayerColor";
+import { PieceName } from "../types/PieceName";
 import { MobilePiece } from "./MobilePiece";
 import { Bishop } from "./Bishop";
 import { Rook } from "./Rook";

@@ -1,8 +1,7 @@
-import type { ChessVariant } from "./enums/ChessVariant";
+import type { ChessVariant } from "./types/ChessVariant";
 import type { Player } from "./players/Player";
 import type { SerialisedMove } from "./moves/SerialisedMove";
 import type { Move } from "./moves/Move";
-import type { JsonObject } from "./types/JsonObject";
 import { Chess } from "./Chess";
 
 import io from "socket.io-client";
@@ -14,13 +13,12 @@ export class ChessSocket extends Chess
     socket: Socket;
     socketPlayer: Player|null;
 
-    constructor(variant: ChessVariant, roomId: string, customJson?: JsonObject, players?: Player[]) {
+    constructor(variant: ChessVariant, roomId: string, customJson?: any, players?: Player[]) {
         super(variant, customJson, players);
         this.controller.calculateMoves(this);
 
         this.roomId = roomId;
-        //this.socket = io('http://localhost:8000');
-        this.socket = io('https://api-chess-lucas-faget.netlify.app:3000');
+        this.socket = io('http://localhost:8000');
         this.socketPlayer = null;
     }
 

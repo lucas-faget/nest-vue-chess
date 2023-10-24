@@ -1,4 +1,4 @@
-import { ChessVariant } from '../../chess/enums/ChessVariant';
+import { ChessVariant } from '../../chess/types/ChessVariant';
 import TwoPlayerGameView from '../../views/TwoPlayerGameView.vue'
 import FourPlayerGameView from '../../views/FourPlayerGameView.vue'
 

@@ -1,10 +1,9 @@
 import type { Position } from "./coordinates/Position";
-import { PieceName } from "./enums/PieceName";
+import { PieceName } from "./types/PieceName";
 import type { Move } from "./moves/Move";
-import { ChessVariant } from "./enums/ChessVariant";
+import { ChessVariant } from "./types/ChessVariant";
 import type { Player } from "./players/Player";
 import { Blacks, Golds, Silvers, Whites } from "./players/Players";
-import type { JsonObject } from "./types/JsonObject";
 import standardJson from "./json/standard.json";
 import fourPlayerJson from "./json/four-player.json";
 import { Chessboard } from "./Chessboard";
@@ -20,29 +19,29 @@ export abstract class Chess
     currentMoveIndex: number = 0;
     playerIndexInFront: number = 0;
 
-    constructor(variant: ChessVariant, customJson?: JsonObject, players?: Player[])
+    constructor(variant: ChessVariant, customJson?: any, players?: Player[])
     {
         this.variant = variant;
         switch (variant) {
             case ChessVariant.FischerRandom:
                 this.players = [Whites, Blacks];
-                const fischerRandomJsonObject: JsonObject = JSON.parse(JSON.stringify(standardJson));
+                const fischerRandomJsonObject: any = JSON.parse(JSON.stringify(standardJson));
                 Chess.shufflePieceRow(fischerRandomJsonObject, 0);
                 this.chessboard = new Chessboard(fischerRandomJsonObject);
                 break;
             case ChessVariant.FourPlayer:
                 this.players = [Whites, Silvers, Blacks, Golds];
-                const fourPlayerJsonObject: JsonObject = JSON.parse(JSON.stringify(fourPlayerJson));
+                const fourPlayerJsonObject: any = JSON.parse(JSON.stringify(fourPlayerJson));
                 this.chessboard = new Chessboard(fourPlayerJsonObject);
                 break;
             case ChessVariant.Custom:
                 this.players = players ?? [Whites, Blacks];
-                const customJsonObject: JsonObject = JSON.parse(JSON.stringify(customJson ?? standardJson));
+                const customJsonObject: any = JSON.parse(JSON.stringify(customJson ?? standardJson));
                 this.chessboard = new Chessboard(customJsonObject);
                 break;
             default:
                 this.players = [Whites, Blacks];
-                const standardJsonObject: JsonObject = JSON.parse(JSON.stringify(standardJson));
+                const standardJsonObject: any = JSON.parse(JSON.stringify(standardJson));
                 this.chessboard = new Chessboard(standardJsonObject);
                 break;
         }
@@ -151,7 +150,7 @@ export abstract class Chess
         return (y % 2 === 0) ? (x % 2 === 0) : (x % 2 !== 0);
     }
 
-    static getPieceRow(json: JsonObject, rank: string): Record<string, PieceName>
+    static getPieceRow(json: any, rank: string): Record<string, PieceName>
     {
         const pieceRow: Record<string, PieceName> = {};
     
@@ -164,7 +163,7 @@ export abstract class Chess
         return pieceRow;
     }
     
-    static shufflePieceRow(jsonObject: JsonObject, rankIndex: number)
+    static shufflePieceRow(jsonObject: any, rankIndex: number)
     {
         const rank = jsonObject.ranks[rankIndex];
         const reversedRank = [...jsonObject.ranks].reverse()[rankIndex];
@@ -174,15 +173,15 @@ export abstract class Chess
 
         let files = jsonObject.files;
 
-        const darkFiles = jsonObject.files.filter((_, fileIndex) => Chess.isDarkSquare(fileIndex, rankIndex));
-        const lightFiles = jsonObject.files.filter((_, fileIndex) => !Chess.isDarkSquare(fileIndex, rankIndex));
+        const darkFiles = jsonObject.files.filter((_, fileIndex: number) => Chess.isDarkSquare(fileIndex, rankIndex));
+        const lightFiles = jsonObject.files.filter((_, fileIndex: number) => !Chess.isDarkSquare(fileIndex, rankIndex));
 
         for (const [file, pieceName] of Object.entries(pieceRow)) {
             const isDark: boolean = Chess.isDarkSquare(jsonObject.files.indexOf(file), rankIndex);
             if (pieceName === PieceName.Bishop) {
                 let shuffledFile: string|undefined = Chess.getRandomElement(isDark ? darkFiles : lightFiles);
                 if (shuffledFile) {
-                    files = files.filter((file) => file !== shuffledFile);
+                    files = files.filter((file: string) => file !== shuffledFile);
                     shuffledPieceRow[shuffledFile] = pieceName;
                 }
             }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PieceName } from '../chess/enums/PieceName';
+    import { PieceName } from '../chess/types/PieceName';
     import { mapGetters } from 'vuex';
 
 	export default {

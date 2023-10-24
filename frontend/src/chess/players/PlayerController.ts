@@ -1,4 +1,4 @@
-import { PieceName } from "../enums/PieceName";
+import { PieceName } from "../types/PieceName";
 import type { Player } from "./Player";
 import { Knight } from "../pieces/Knight";
 import { Bishop } from "../pieces/Bishop";

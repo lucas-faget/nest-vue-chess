@@ -1,5 +1,5 @@
-import { PlayerColor } from "../enums/PlayerColor";
-import { PieceName } from "../enums/PieceName";
+import { PlayerColor } from "../types/PlayerColor";
+import { PieceName } from "../types/PieceName";
 import type { Square } from "../Square";
 import type { Move } from "../moves/Move";
 import type { PlayerController } from "../players/PlayerController";

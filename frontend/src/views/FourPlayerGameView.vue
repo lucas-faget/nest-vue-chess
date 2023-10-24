@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { ChessVariant } from '../chess/enums/ChessVariant'
+	import { ChessVariant } from '../chess/types/ChessVariant'
 	import type { Player } from '../chess/players/Player'
 	import { ChessLocal } from '../chess/ChessLocal'
-	import { SquareColor } from '../enums/SquareColor';
+	import { SquareColor } from '../types/SquareColor';
 
 	import Background from '../components/Background.vue'
 	import Chessboard from '../components/Chessboard.vue'

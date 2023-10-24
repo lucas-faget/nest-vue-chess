@@ -1,9 +1,8 @@
 import type { Position } from "./coordinates/Position";
-import type { PlayerColor } from "./enums/PlayerColor";
-import { PieceName } from "./enums/PieceName";
+import type { PlayerColor } from "./types/PlayerColor";
+import { PieceName } from "./types/PieceName";
 import { Square } from "./Square";
-import type { JsonObject } from "./types/JsonObject";
-import type { ChessboardFEN } from "./types/ChessboardFen";
+import type { ChessboardFen } from "./types/ChessboardFEN";
 
 export class Chessboard
 {
@@ -13,7 +12,7 @@ export class Chessboard
     reversedFiles: string[];
     squares: Map<string, Square> = new Map();
 
-    constructor(jsonObject: JsonObject)
+    constructor(jsonObject: any)
     {
         this.ranks = jsonObject.ranks;
         this.files = jsonObject.files;
@@ -102,7 +101,7 @@ export class Chessboard
         return position;
     }
 
-    toFEN(): ChessboardFEN
+    toFen(): ChessboardFen
     {
         return {
             position: this.getPositionString(),

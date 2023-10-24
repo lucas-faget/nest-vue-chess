@@ -1,7 +1,7 @@
 import type { Position } from "../coordinates/Position";
 import { Direction } from "../coordinates/Direction";
-import { PieceName } from "../enums/PieceName";
-import type { PlayerColor } from "../enums/PlayerColor";
+import { PieceName } from "../types/PieceName";
+import type { PlayerColor } from "../types/PlayerColor";
 import { Piece } from "./Piece";
 import type { Square } from "../Square";
 import { Move } from "../moves/Move";

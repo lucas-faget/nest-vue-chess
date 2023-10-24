@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
-import type { PlayerColor } from '../chess/enums/PlayerColor';
-import type { PieceName } from '../chess/enums/PieceName';
+import type { PlayerColor } from '../chess/types/PlayerColor';
+import type { PieceName } from '../chess/types/PieceName';
 
 const store = createStore({
     getters: {

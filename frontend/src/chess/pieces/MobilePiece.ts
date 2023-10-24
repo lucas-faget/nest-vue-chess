@@ -1,5 +1,5 @@
 import type { Position } from "../coordinates/Position";
-import { PieceName } from "../enums/PieceName";
+import { PieceName } from "../types/PieceName";
 import { Piece } from "./Piece";
 import type { Square } from "../Square";
 import { Move } from "../moves/Move";

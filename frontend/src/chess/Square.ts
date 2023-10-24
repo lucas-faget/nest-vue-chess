@@ -1,6 +1,6 @@
 import type { Position } from "./coordinates/Position";
-import type { PlayerColor } from "./enums/PlayerColor";
-import { PieceName } from "./enums/PieceName";
+import type { PlayerColor } from "./types/PlayerColor";
+import { PieceName } from "./types/PieceName";
 import type { Piece } from "./pieces/Piece";
 import { Pawn } from "./pieces/Pawn";
 import { Knight } from "./pieces/Knight";

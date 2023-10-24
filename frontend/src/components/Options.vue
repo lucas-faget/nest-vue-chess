@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { SquareColor } from '../enums/SquareColor';
+    import { SquareColor } from '../types/SquareColor';
     import Dropdown from './Dropdown.vue';
     import DropdownItems from './DropdownItems.vue';
     import DropdownItem from './DropdownItem.vue';

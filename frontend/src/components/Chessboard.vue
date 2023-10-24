@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { ChessVariant } from '../chess/enums/ChessVariant';
-    import { SquareColor } from '../enums/SquareColor';
+    import { ChessVariant } from '../chess/types/ChessVariant';
+    import { SquareColor } from '../types/SquareColor';
     import type { Chess } from '../chess/Chess';
     import Square from './Square.vue'
 

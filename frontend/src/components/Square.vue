@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Square } from '../chess/Square';
-    import { SquareColor } from '../enums/SquareColor';
+    import { SquareColor } from '../types/SquareColor';
     import { mapGetters } from 'vuex';
 
     export default {

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ActionType } from '../enums/ActionType';
+    import { ActionType } from '../types/ActionType';
     import Tooltip from './Tooltip.vue';
 
     export default {

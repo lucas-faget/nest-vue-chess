@@ -1,4 +1,4 @@
-export interface ChessboardFEN {
+export interface ChessboardFen {
     position: string,
     sideToMove: string,
     castlingRights: string,

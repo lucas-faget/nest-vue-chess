@@ -1,6 +1,6 @@
 import type { Position } from "../coordinates/Position";
 import { Direction } from "../coordinates/Direction";
-import { PieceName } from "../enums/PieceName";
+import { PieceName } from "../types/PieceName";
 import { Piece } from "./Piece";
 import type { Square } from "../Square";
 import { Capture } from "../moves/Capture";

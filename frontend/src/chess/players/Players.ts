@@ -1,5 +1,5 @@
 import { Direction } from "../coordinates/Direction";
-import { PlayerColor } from "../enums/PlayerColor";
+import { PlayerColor } from "../types/PlayerColor";
 import { Player } from "./Player";
 
 export const Whites = new Player(PlayerColor.White, "Whites", Direction.Up);

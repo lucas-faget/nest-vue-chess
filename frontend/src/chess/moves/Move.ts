@@ -1,5 +1,6 @@
 import type { Piece } from "../pieces/Piece";
 import type { Square } from "../Square";
+import type { CastlingRights } from "../types/CastlingRights";
 import type { SerialisedMove } from "./SerialisedMove";
 
 export class Move
@@ -7,12 +8,17 @@ export class Move
     fromSquare: Square;
     toSquare: Square;
     capturedPiece: Piece|null;
+    castlingRights?: CastlingRights = {
+        kingside: false,
+        queenside: false
+    };
 
-    constructor(fromSquare: Square, toSquare: Square)
+    constructor(fromSquare: Square, toSquare: Square, castlingRights?: CastlingRights)
     {
         this.fromSquare = fromSquare;
         this.toSquare = toSquare;
         this.capturedPiece = null;
+        this.castlingRights = castlingRights;
     }
 
     carryoutMove(): void

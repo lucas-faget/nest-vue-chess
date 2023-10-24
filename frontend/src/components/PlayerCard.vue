@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PlayerColor } from '../chess/enums/PlayerColor';
+    import { PlayerColor } from '../chess/types/PlayerColor';
     import type { Player } from '../chess/players/Player';
     import { mapGetters } from 'vuex';
 
