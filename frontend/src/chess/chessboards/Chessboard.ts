@@ -11,6 +11,8 @@ export abstract class Chessboard
     reversedFiles: string[];
     squares: Map<string, Square> = new Map();
 
+    abstract kingSquareNameByPlayer: Object;
+
     constructor(ranks: string[], files: string[])
     {
         this.ranks = ranks;

@@ -72,11 +72,11 @@ export class King extends Piece
             }
             for (const side of sides)
             {
-                const castlingDirection: Coordinates|null = side === Side.Kingside ? 
-                    King.kingsideCastlingDirection(controller.player) : 
+                const castlingDirection: Coordinates|null = side === Side.Kingside ?
+                    King.kingsideCastlingDirection(controller.player) :
                     King.queensideCastlingDirection(controller.player);
-                const castlingStep: number = side === Side.Kingside ? 
-                    King.KingsideCastlingStep : 
+                const castlingStep: number = side === Side.Kingside ?
+                    King.KingsideCastlingStep :
                     King.QueensideCastlingStep;
 
                 if (castlingDirection) {

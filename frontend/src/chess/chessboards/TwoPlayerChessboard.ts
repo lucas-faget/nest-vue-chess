@@ -12,8 +12,10 @@ export class TwoPlayerChessboard extends Chessboard
     static Ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
     static Files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
-    static WhiteKingSquareName = "e1";
-    static BlackKingSquareName = "e8";
+    kingSquareNameByPlayer: Object = {
+        [PlayerColor.White]: "e1",
+        [PlayerColor.Black]: "e8"
+    };
 
     constructor(fenPosition: string)
     {

@@ -7,7 +7,7 @@ import { Chess } from "./Chess";
 
 export class FourPlayerChess extends Chess
 {
-    static Players: Player[] = [Whites, Blacks, Silvers, Golds];
+    static Players: Player[] = [Whites, Silvers, Blacks, Golds];
 
     // static WhiteKingsideCastling: string = 'K';
     // static WhiteQueensideCastling: string = 'Q';

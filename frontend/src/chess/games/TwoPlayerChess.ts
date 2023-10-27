@@ -1,5 +1,6 @@
 import type { ChessVariant } from "../types/ChessVariant";
 import type { FenRecord } from "../types/FenRecord";
+import { PlayerColor } from "../types/PlayerColor";
 import type { Player } from "../players/Player";
 import { Blacks, Whites } from "../players/Players";
 import type { Chessboard } from "../chessboards/Chessboard";
