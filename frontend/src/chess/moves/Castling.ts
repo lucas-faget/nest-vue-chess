@@ -1,4 +1,6 @@
-import type { Square } from "../Square";
+import type { CastlingRights } from "../types/CastlingRights";
+import type { Player } from "../players/Player";
+import type { Square } from "../squares/Square";
 import { Move } from "./Move";
 
 export class Castling extends Move

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { ChessVariant } from '../chess/types/ChessVariant';
     import { SquareColor } from '../types/SquareColor';
-    import type { Chess } from '../chess/Chess';
+    import type { Chess } from '../chess/games/Chess';
     import Square from './Square.vue'
 
     export default {

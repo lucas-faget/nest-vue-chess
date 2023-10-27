@@ -1,9 +1,9 @@
 import { PlayerColor } from "../types/PlayerColor";
 import { PieceName } from "../types/PieceName";
-import type { Square } from "../Square";
+import type { Square } from "../squares/Square";
 import type { Move } from "../moves/Move";
 import type { PlayerController } from "../players/PlayerController";
-import type { Chessboard } from "../Chessboard";
+import type { Chessboard } from "../chessboards/Chessboard";
 
 export abstract class Piece
 {
@@ -17,7 +17,6 @@ export abstract class Piece
     ])
 
     color: PlayerColor;
-    moveCount: number = 0;
 
     constructor(color: PlayerColor) {
         this.color = color;
@@ -26,16 +25,6 @@ export abstract class Piece
     abstract getName(): PieceName;
 
     abstract getMoves(square: Square, chessboard: Chessboard, controller: PlayerController, lastMove: Move|null): Move[];
-
-    hasNeverMoved(): boolean
-    {
-        return this.moveCount === 0;
-    }
-
-    hasMovedOnce(): boolean
-    {
-        return this.moveCount === 1;
-    }
 
     toString(): string
     {

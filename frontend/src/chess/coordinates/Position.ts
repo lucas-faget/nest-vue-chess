@@ -1,4 +1,4 @@
-export type Position = {
+export type Coordinates = {
     x: number,
     y: number,
 }

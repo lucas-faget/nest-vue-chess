@@ -1,15 +1,15 @@
-import type { Position } from "../coordinates/Position";
+import type { Coordinates } from "../coordinates/Position";
 import { PieceName } from "../types/PieceName";
 import { Piece } from "./Piece";
-import type { Square } from "../Square";
+import type { Square } from "../squares/Square";
 import { Move } from "../moves/Move";
 import { Capture } from "../moves/Capture";
-import type { Chessboard } from "../Chessboard";
+import type { Chessboard } from "../chessboards/Chessboard";
 import type { PlayerController } from "../players/PlayerController";
 
 export abstract class MobilePiece extends Piece
 {
-    directions: Position[] = [];
+    directions: Coordinates[] = [];
 
     getMoves(fromSquare: Square, chessboard: Chessboard, controller: PlayerController): Move[]
     {
@@ -18,7 +18,7 @@ export abstract class MobilePiece extends Piece
 
         for (const direction of this.directions) {
             toSquare = fromSquare;
-            while (toSquare = chessboard.getNextSquare(toSquare, direction)) {
+            while (toSquare = chessboard.getSquareByDirection(toSquare, direction)) {
                 if (toSquare.isEmpty()) {
                     let move: Move = new Move(fromSquare, toSquare);
                     if (!controller.isCheckedIfMoving(move, chessboard)) {

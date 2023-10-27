@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ChessVariant } from '../chess/types/ChessVariant'
 	import type { Player } from '../chess/players/Player'
-	import { ChessLocal } from '../chess/ChessLocal'
+	import { TwoPlayerChess } from '../chess/games/TwoPlayerChess';
 	import { SquareColor } from '../types/SquareColor';
 
 	import Background from '../components/Background.vue'
@@ -20,7 +20,7 @@
 		},
 		data() {
 			return {
-				chess: new ChessLocal(this.variant),
+				chess: new TwoPlayerChess(this.variant),
 				lightSquareColor: SquareColor.Brown,
 				darkSquareColor: SquareColor.Brown,
 			}
@@ -46,7 +46,7 @@
 		},
 		watch: {
 			variant(newVariant: ChessVariant, oldVariant: ChessVariant) {
-				this.chess = new ChessLocal(newVariant);
+				this.chess = new TwoPlayerChess(newVariant);
 			}
 		}
 	}

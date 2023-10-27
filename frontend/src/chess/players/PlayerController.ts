@@ -4,11 +4,11 @@ import { Knight } from "../pieces/Knight";
 import { Bishop } from "../pieces/Bishop";
 import { Rook } from "../pieces/Rook";
 import { Queen } from "../pieces/Queen";
-import type { Square } from "../Square";
+import type { Square } from "../squares/Square";
 import type { LegalMoves } from "../moves/LegalMoves";
 import type { Move } from "../moves/Move";
-import type { Chessboard } from "../Chessboard";
-import type { Chess } from "../Chess";
+import type { Chessboard } from "../chessboards/Chessboard";
+import type { Chess } from "../games/Chess";
 
 export class PlayerController
 {
@@ -123,7 +123,7 @@ export class PlayerController
 
         // test if checked by queen, rook or bishop
         for (const direction of Queen.Directions) {
-            square = chessboard.getNextSquare(this.kingSquare!, direction);
+            square = chessboard.getSquareByDirection(this.kingSquare!, direction);
             while (square) {
                 if (!square.isEmpty()) {
                     if (square.isOccupiedByOpponent(this.player.color)) {
@@ -139,7 +139,7 @@ export class PlayerController
                     }
                     break;
                 }
-                square = chessboard.getNextSquare(square, direction);
+                square = chessboard.getSquareByDirection(square, direction);
             }
         }
 
@@ -151,7 +151,7 @@ export class PlayerController
         let square: Square|null = null;
 
         for (const direction of Knight.Directions) {
-            square = chessboard.getNextSquare(this.kingSquare!, direction);
+            square = chessboard.getSquareByDirection(this.kingSquare!, direction);
             if (square && square.isOccupiedByPieceName(PieceName.Knight) && square.isOccupiedByOpponent(this.player.color)) {
                 return true;
             }
@@ -166,7 +166,7 @@ export class PlayerController
 
         for (const direction of Bishop.Directions) {
             if (direction.x === this.player.direction.x || direction.y === this.player.direction.y) {
-                square = chessboard.getNextSquare(this.kingSquare!, direction);
+                square = chessboard.getSquareByDirection(this.kingSquare!, direction);
                 if (square && square.isOccupiedByPieceName(PieceName.Pawn) && square.isOccupiedByOpponent(this.player.color)) {
                     return true;
                 }

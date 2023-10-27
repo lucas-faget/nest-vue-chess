@@ -1,19 +1,21 @@
-import type { Position } from "../coordinates/Position";
+import type { Coordinates } from "../coordinates/Position";
 import { Direction } from "../coordinates/Direction";
 import { PieceName } from "../types/PieceName";
 import type { PlayerColor } from "../types/PlayerColor";
 import { Piece } from "./Piece";
-import type { Square } from "../Square";
+import type { Square } from "../squares/Square";
 import { Move } from "../moves/Move";
 import { Capture } from "../moves/Capture";
 import { Promotion } from "../moves/Promotion";
 import { EnPassantCapture } from "../moves/EnPassantCapture";
-import type { Chessboard } from "../Chessboard";
+import type { Chessboard } from "../chessboards/Chessboard";
 import type { PlayerController } from "../players/PlayerController";
-import { Chess } from "../Chess";
+import { Chess } from "../games/Chess";
 
 export class Pawn extends Piece
 {
+    static PawnLineIndex: number = 1;
+
     constructor(color: PlayerColor) {
         super(color);
     }
@@ -28,10 +30,10 @@ export class Pawn extends Piece
         let moves: Move[] = [];
         let toSquare: Square|null = fromSquare;
 
-        toSquare = chessboard.getNextSquare(toSquare, controller.player.direction);
+        toSquare = chessboard.getSquareByDirection(toSquare, controller.player.direction);
         if (toSquare && toSquare.isEmpty()) {
             let move: Move;
-            if (chessboard.getNextSquare(toSquare, controller.player.direction)) {
+            if (chessboard.getSquareByDirection(toSquare, controller.player.direction)) {
                 move = new Move(fromSquare, toSquare);
             } else {
                 move = new Promotion(fromSquare, toSquare, null);
@@ -39,8 +41,8 @@ export class Pawn extends Piece
             if (!controller.isCheckedIfMoving(move, chessboard)) {
                 moves.push(move);
             }
-            if (this.hasNeverMoved()) {
-                toSquare = chessboard.getNextSquare(toSquare, controller.player.direction);
+            if (Pawn.isPawnLine(fromSquare.position, controller.player.direction, chessboard)) {
+                toSquare = chessboard.getSquareByDirection(toSquare, controller.player.direction);
                 if (toSquare && toSquare.isEmpty()) {
                     let move: Move = new Move(fromSquare, toSquare);
                     if (!controller.isCheckedIfMoving(move, chessboard)) {
@@ -51,10 +53,10 @@ export class Pawn extends Piece
         }
 
         for (const direction of Pawn.getCaptureDirections(controller.player.direction)) {
-            toSquare = chessboard.getNextSquare(fromSquare, direction);
+            toSquare = chessboard.getSquareByDirection(fromSquare, direction);
             if (toSquare && toSquare.isOccupiedByOpponent(this.color) && !toSquare.isOccupiedByPieceName(PieceName.King)) {
                 let move: Move;
-                if (chessboard.getNextSquare(toSquare, controller.player.direction)) {
+                if (chessboard.getSquareByDirection(toSquare, controller.player.direction)) {
                     move = new Capture(fromSquare, toSquare, toSquare.getPiece());
                 } else {
                     move = new Promotion(fromSquare, toSquare, toSquare.getPiece());
@@ -78,15 +80,14 @@ export class Pawn extends Piece
         let toSquare: Square|null = null; 
 
         for (const direction of [Direction.Left, Direction.Right]) {
-            captureSquare = chessboard.getNextSquare(fromSquare, direction);
+            captureSquare = chessboard.getSquareByDirection(fromSquare, direction);
             if (captureSquare &&
                 captureSquare === lastMove?.toSquare &&
-                chessboard.getNextSquare(captureSquare, controller.player.direction, 2) === lastMove.fromSquare &&
-                captureSquare.getPiece()!.hasMovedOnce() &&
+                chessboard.getSquareByDirection(captureSquare, controller.player.direction, 2) === lastMove.fromSquare &&
                 captureSquare.isOccupiedByPieceName(PieceName.Pawn) &&
                 captureSquare.isOccupiedByOpponent(this.color))
             {
-                toSquare = chessboard.getNextSquare(captureSquare, controller.player.direction);
+                toSquare = chessboard.getSquareByDirection(captureSquare, controller.player.direction);
                 if (toSquare && toSquare.isEmpty()) {
                     let move: Move = new EnPassantCapture(fromSquare, toSquare, captureSquare.getPiece()!, captureSquare);
                     if (!controller.isCheckedIfMoving(move, chessboard)) {
@@ -99,7 +100,7 @@ export class Pawn extends Piece
         return moves;
     }
 
-    static getCaptureDirections(direction: Position): Position[]
+    static getCaptureDirections(direction: Coordinates): Coordinates[]
     {
         if (Chess.areEqualCoordinates(direction, Direction.Up)) {
             return [Direction.UpLeft, Direction.UpRight];
@@ -111,6 +112,21 @@ export class Pawn extends Piece
             return [Direction.UpLeft, Direction.DownLeft];
         } else {
             return [];
+        }
+    }
+
+    static isPawnLine(position: Coordinates, direction: Coordinates, chessboard: Chessboard): boolean
+    {
+        if (Chess.areEqualCoordinates(direction, Direction.Up)) {
+            return position.x === Pawn.PawnLineIndex;
+        } else if (Chess.areEqualCoordinates(direction, Direction.Down)) {
+            return position.x === chessboard.ranks.length - 1 - Pawn.PawnLineIndex;
+        } else if (Chess.areEqualCoordinates(direction, Direction.Right)) {
+            return position.y === Pawn.PawnLineIndex;
+        } else if (Chess.areEqualCoordinates(direction, Direction.Left)) {
+            return position.x === chessboard.files.length - 1 - Pawn.PawnLineIndex;
+        } else {
+            return false;
         }
     }
 }

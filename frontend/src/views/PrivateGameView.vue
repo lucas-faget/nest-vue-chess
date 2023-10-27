@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ChessVariant } from '../chess/types/ChessVariant'
 	import type { Player } from '../chess/players/Player'
-	import { ChessSocket } from '../chess/ChessSocket';
+	import { ChessSocket } from '../chess/games/ChessSocket';
 	import { SquareColor } from '../types/SquareColor';
 
 	import Background from '../components/Background.vue'
@@ -20,7 +20,7 @@
 		},
 		data() {
 			return {
-				chess: new ChessSocket(ChessVariant.Standard, this.roomId),
+				chess: new ChessSocket(this.roomId),
 				lightSquareColor: SquareColor.Brown,
 				darkSquareColor: SquareColor.Brown,
 			}
@@ -51,7 +51,7 @@
 		},
 		watch: {
 			variant(newVariant: ChessVariant, oldVariant: ChessVariant) {
-				this.chess = new ChessSocket(newVariant, this.roomId);
+				this.chess = new ChessSocket(this.roomId);
 			}
 		}
 	}

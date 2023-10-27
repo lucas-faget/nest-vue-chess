@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Square } from '../chess/Square';
+    import type { Square } from '../chess/squares/Square';
     import { SquareColor } from '../types/SquareColor';
     import { mapGetters } from 'vuex';
 

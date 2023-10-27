@@ -1,4 +1,4 @@
-import type { Position } from "../coordinates/Position";
+import type { Coordinates } from "../coordinates/Position";
 import { PieceName } from "../types/PieceName";
 import type { PlayerColor } from "../types/PlayerColor"
 import type { CastlingRights } from "../types/CastlingRights";
@@ -7,12 +7,11 @@ export class Player
 {
     color: PlayerColor;
     name: string;
-    direction: Position;
+    direction: Coordinates;
     castlingRights: CastlingRights;
     capturedPieces: Map<PieceName, number>;
-    advantage: number;
 
-    constructor(color: PlayerColor, name: string, direction: Position) {
+    constructor(color: PlayerColor, name: string, direction: Coordinates) {
         this.color = color;
         this.name = name;
         this.direction = direction;
@@ -27,7 +26,6 @@ export class Player
             [PieceName.Knight, 0],
             [PieceName.Pawn, 0]
         ]);
-        this.advantage = 0;
     }
 
     addCapturedPiece(pieceName: PieceName) {

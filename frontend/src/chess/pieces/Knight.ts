@@ -1,16 +1,16 @@
-import type { Position } from "../coordinates/Position";
+import type { Coordinates } from "../coordinates/Position";
 import { Direction } from "../coordinates/Direction";
 import { PieceName } from "../types/PieceName";
 import { Piece } from "./Piece";
-import type { Square } from "../Square";
+import type { Square } from "../squares/Square";
 import { Capture } from "../moves/Capture";
 import { Move } from "../moves/Move";
-import type { Chessboard } from "../Chessboard";
+import type { Chessboard } from "../chessboards/Chessboard";
 import type { PlayerController } from "../players/PlayerController";
 
 export class Knight extends Piece
 {
-    static Directions: Position[] = [
+    static Directions: Coordinates[] = [
         Direction.UpUpLeft, Direction.UpUpRight, Direction.UpRightRight, Direction.DownRightRight, 
         Direction.DownDownRight, Direction.DownDownLeft, Direction.DownLeftLeft, Direction.UpLeftLeft
     ];
@@ -26,7 +26,7 @@ export class Knight extends Piece
         let toSquare: Square|null = null;
 
         for (const direction of Knight.Directions) {
-            if (toSquare = chessboard.getNextSquare(fromSquare, direction)) {
+            if (toSquare = chessboard.getSquareByDirection(fromSquare, direction)) {
                 if (toSquare.isEmpty()) {
                     let move: Move = new Move(fromSquare, toSquare);
                     if (!controller.isCheckedIfMoving(move, chessboard)) {

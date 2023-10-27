@@ -1,4 +1,4 @@
-import type { Position } from "../coordinates/Position";
+import type { Coordinates } from "../coordinates/Position";
 import type { PlayerColor } from "../types/PlayerColor";
 import { PieceName } from "../types/PieceName";
 import { MobilePiece } from "./MobilePiece";
@@ -7,7 +7,7 @@ import { Rook } from "./Rook";
 
 export class Queen extends MobilePiece
 {
-    static Directions: Position[] = [
+    static Directions: Coordinates[] = [
         ...Bishop.Directions, ...Rook.Directions
     ];
 

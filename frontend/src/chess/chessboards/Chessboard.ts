@@ -1,10 +1,9 @@
-import type { Position } from "./coordinates/Position";
-import type { PlayerColor } from "./types/PlayerColor";
-import { PieceName } from "./types/PieceName";
-import { Square } from "./Square";
-import type { ChessboardFen } from "./types/ChessboardFEN";
+import type { Coordinates } from "../coordinates/Position";
+import type { PlayerColor } from "../types/PlayerColor";
+import { PieceName } from "../types/PieceName";
+import type { Square } from "../squares/Square";
 
-export class Chessboard
+export abstract class Chessboard
 {
     ranks: string[];
     files: string[];
@@ -12,38 +11,12 @@ export class Chessboard
     reversedFiles: string[];
     squares: Map<string, Square> = new Map();
 
-    constructor(jsonObject: any)
+    constructor(ranks: string[], files: string[])
     {
-        this.ranks = jsonObject.ranks;
-        this.files = jsonObject.files;
-
+        this.ranks = ranks;
+        this.files = files;
         this.reversedRanks = [...this.ranks].reverse();
         this.reversedFiles = [...this.files].reverse();
-
-        // Fill the chessboard
-        for (const [rankIndex, rank] of this.ranks.entries()) {
-            for (const [fileIndex, file] of this.files.entries())
-            {
-                let square: Square = new Square(
-                    file + rank, 
-                    { x: rankIndex, y: fileIndex }
-                );
-
-                if (jsonObject.pieces[square.name]) {
-                    let pieceName : PieceName = jsonObject.pieces[square.name].name;
-                    let playerColor: PlayerColor = jsonObject.pieces[square.name].color;
-                    square.setPiece(pieceName, playerColor);
-                }
-
-                this.squares.set(square.name, square);
-            }
-        }
-
-        if (jsonObject.voidSquares) {
-            for (const squareName of jsonObject.voidSquares) {
-                this.squares.delete(squareName);
-            }
-        }
     }
 
     getSquareByName(squareName: string): Square|null
@@ -51,7 +24,7 @@ export class Chessboard
         return this.squares.get(squareName) ?? null;
     }
 
-    getSquareByPosition(position: Position): Square|null
+    getSquareByPosition(position: Coordinates): Square|null
     {
         if (position.x < 0 || position.y < 0 || position.x >= this.ranks.length || position.y >= this.files.length) {
             return null;
@@ -60,11 +33,11 @@ export class Chessboard
         return this.squares.get(this.files[position.y] + this.ranks[position.x])!;
     }
 
-    getNextSquare(square: Square, direction: Position, gap: number = 1): Square|null
+    getSquareByDirection(square: Square, direction: Coordinates, step: number = 1): Square|null
     {
         return this.getSquareByPosition({
-            x: square.position.x + gap * direction.x,
-            y: square.position.y + gap * direction.y,
+            x: square.position.x + step * direction.x,
+            y: square.position.y + step * direction.y,
         });
     }
 
@@ -99,15 +72,5 @@ export class Chessboard
         }
 
         return position;
-    }
-
-    toFen(): ChessboardFen
-    {
-        return {
-            position: this.getPositionString(),
-            sideToMove: 'w',
-            castlingRights: 'KQkq',
-            enPassantTarget: '-'
-        }
     }
 }

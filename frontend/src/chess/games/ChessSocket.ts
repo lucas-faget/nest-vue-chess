@@ -1,22 +1,21 @@
-import type { ChessVariant } from "./types/ChessVariant";
-import type { Player } from "./players/Player";
-import type { SerialisedMove } from "./moves/SerialisedMove";
-import type { Move } from "./moves/Move";
-import { Chess } from "./Chess";
+import { ChessVariant } from "../types/ChessVariant";
+import type { Player } from "../players/Player";
+import type { SerialisedMove } from "../moves/SerialisedMove";
+import type { Move } from "../moves/Move";
+import { TwoPlayerChess } from "./TwoPlayerChess";
 
 import io from "socket.io-client";
 import type { Socket } from "socket.io-client";
 
-export class ChessSocket extends Chess
+export class ChessSocket extends TwoPlayerChess
 {
     roomId: string;
     socket: Socket;
     socketPlayer: Player|null;
 
-    constructor(variant: ChessVariant, roomId: string, customJson?: any, players?: Player[]) {
-        super(variant, customJson, players);
-        this.controller.calculateMoves(this);
-
+    constructor(roomId: string)
+    {
+        super(ChessVariant.Standard, TwoPlayerChess.FenString);
         this.roomId = roomId;
         this.socket = io('http://localhost:8000');
         this.socketPlayer = null;
@@ -69,13 +68,7 @@ export class ChessSocket extends Chess
             });
         }
 
-        move.carryoutMove();
-        this.savedMoves.push(move);
-        this.currentMoveIndex = this.savedMoves.length;
-        this.updateCapturedPieces(move, false);
-        this.updateAdvantage(move);
-        this.updateCurrentPlayer();
-        this.controller.calculateMoves(this);
+        super.saveMove(move);
     }
 
     deleteLastMove(): void {}

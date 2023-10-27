@@ -1,23 +1,23 @@
-import type { Position } from "./coordinates/Position";
-import type { PlayerColor } from "./types/PlayerColor";
-import { PieceName } from "./types/PieceName";
-import type { Piece } from "./pieces/Piece";
-import { Pawn } from "./pieces/Pawn";
-import { Knight } from "./pieces/Knight";
-import { Bishop } from "./pieces/Bishop";
-import { Rook } from "./pieces/Rook";
-import { Queen } from "./pieces/Queen";
-import { King } from "./pieces/King";
-import type { Chessboard } from "./Chessboard";
-import { Chess } from "./Chess";
+import type { Coordinates } from "../coordinates/Position";
+import type { PlayerColor } from "../types/PlayerColor";
+import { PieceName } from "../types/PieceName";
+import type { Piece } from "../pieces/Piece";
+import { Pawn } from "../pieces/Pawn";
+import { Knight } from "../pieces/Knight";
+import { Bishop } from "../pieces/Bishop";
+import { Rook } from "../pieces/Rook";
+import { Queen } from "../pieces/Queen";
+import { King } from "../pieces/King";
+import type { Chessboard } from "../chessboards/Chessboard";
+import { Chess } from "../games/Chess";
 
 export class Square
 {
     name: string;
-    position: Position;
+    position: Coordinates;
     piece: Piece|null;
   
-    constructor(name: string, position: Position) {
+    constructor(name: string, position: Coordinates) {
         this.name = name;
         this.position = position;
         this.piece = null;
@@ -77,7 +77,7 @@ export class Square
         let nextSquare: Square|null = null;
 
         for (const direction of King.Directions) {
-            if (nextSquare = chessboard.getNextSquare(this, direction)) {
+            if (nextSquare = chessboard.getSquareByDirection(this, direction)) {
                 if (nextSquare.getPiece()?.getName() === PieceName.King && nextSquare.getPiece()?.color !== color) {
                     return true;
                 }
