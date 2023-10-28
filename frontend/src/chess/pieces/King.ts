@@ -72,9 +72,9 @@ export class King extends Piece
             }
             for (const side of sides)
             {
-                const castlingDirection: Coordinates|null = side === Side.Kingside ?
-                    King.kingsideCastlingDirection(controller.player) :
-                    King.queensideCastlingDirection(controller.player);
+                const castlingDirection: Coordinates = side === Side.Kingside ?
+                    controller.player.kingsideCastlingDirection() :
+                    controller.player.queensideCastlingDirection();
                 const castlingStep: number = side === Side.Kingside ?
                     King.KingsideCastlingStep :
                     King.QueensideCastlingStep;
@@ -104,15 +104,5 @@ export class King extends Piece
         }
 
         return moves;
-    }
-
-    static kingsideCastlingDirection(player: Player): Coordinates|null
-    {
-        return player.direction.y === 0 ? Direction.Right : player.direction.x === 0 ? Direction.Down : null;
-    }
-
-    static queensideCastlingDirection(player: Player): Coordinates|null
-    {
-        return player.direction.y === 0 ? Direction.Left : player.direction.x === 0 ? Direction.Up : null;
     }
 }

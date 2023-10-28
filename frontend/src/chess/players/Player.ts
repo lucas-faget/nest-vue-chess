@@ -1,4 +1,5 @@
 import type { Coordinates } from "../coordinates/Position";
+import { Direction } from "../coordinates/Direction";
 import { PieceName } from "../types/PieceName";
 import type { PlayerColor } from "../types/PlayerColor"
 import type { CastlingRights } from "../types/CastlingRights";
@@ -28,11 +29,23 @@ export class Player
         ]);
     }
 
-    addCapturedPiece(pieceName: PieceName) {
+    addCapturedPiece(pieceName: PieceName)
+    {
         this.capturedPieces.set(pieceName, (this.capturedPieces.get(pieceName) ?? 0) + 1);
     }
     
-    removeCapturedPiece(pieceName: PieceName) {
+    removeCapturedPiece(pieceName: PieceName)
+    {
         this.capturedPieces.set(pieceName, (this.capturedPieces.get(pieceName) ?? 0) - 1);
+    }
+
+    kingsideCastlingDirection(): Coordinates
+    {
+        return this.direction.y === 0 ? Direction.Right : Direction.Down;
+    }
+
+    queensideCastlingDirection(): Coordinates
+    {
+        return this.direction.y === 0 ? Direction.Left : Direction.Up;
     }
 }
