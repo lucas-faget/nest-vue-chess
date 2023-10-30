@@ -47,7 +47,7 @@ export abstract class Chess
 
     setPreviousPlayer(): void
     {
-        this.controller.setPlayer(this.players[(this.players.indexOf(this.controller.player) - 1) % this.players.length]);
+        this.controller.setPlayer(this.players[(this.players.indexOf(this.controller.player) - 1 + this.players.length) % this.players.length]);
     }
 
     setNextPlayer(): void
@@ -187,6 +187,7 @@ export abstract class Chess
                 if (lastGameState.move) lastGameState.move.undoMove();
                 this.decrementFullmoveNumber();
                 this.setPreviousPlayer();
+                console.log(this.controller.player)
                 this.controller.player.castlingRights = lastGameState.castlingRights;
                 this.updateController();
             }
