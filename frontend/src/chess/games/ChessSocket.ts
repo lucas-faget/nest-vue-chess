@@ -1,6 +1,6 @@
 import { ChessVariant } from "../types/ChessVariant";
 import type { Player } from "../players/Player";
-import type { SerialisedMove } from "../moves/SerialisedMove";
+import type { SerialisedMove } from "../types/SerialisedMove";
 import type { Move } from "../moves/Move";
 import { TwoPlayerChess } from "./TwoPlayerChess";
 
@@ -56,7 +56,7 @@ export class ChessSocket extends TwoPlayerChess
 
     canPlay(): boolean
     {
-        return this.controller.player === this.socketPlayer && this.isCurrentMoveTheLast();
+        return this.controller.player === this.socketPlayer && this.isActiveTurnTheLast();
     }
 
     saveMove(move: Move, emitToServer: boolean = true): void

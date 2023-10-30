@@ -25,7 +25,7 @@ export class Pawn extends Piece
         return PieceName.Pawn;
     }
 
-    getMoves(fromSquare: Square, chessboard: Chessboard, controller: PlayerController, lastMove: Move|null): Move[]
+    getMoves(fromSquare: Square, chessboard: Chessboard, controller: PlayerController): Move[]
     {
         let moves: Move[] = [];
         let toSquare: Square|null = fromSquare;
@@ -69,29 +69,27 @@ export class Pawn extends Piece
 
         return [
             ...moves,
-            ...this.getEnPassantCapture(fromSquare, chessboard, controller, lastMove)
+            ...this.getEnPassantCapture(fromSquare, chessboard, controller)
         ];
     }
 
-    getEnPassantCapture(fromSquare: Square, chessboard: Chessboard, controller: PlayerController, lastMove: Move|null): Move[]
+    getEnPassantCapture(fromSquare: Square, chessboard: Chessboard, controller: PlayerController): Move[]
     {
         let moves: Move[] = [];
-        let captureSquare: Square|null = null;
-        let toSquare: Square|null = null; 
 
-        for (const direction of [Direction.Left, Direction.Right]) {
-            captureSquare = chessboard.getSquareByDirection(fromSquare, direction);
-            if (captureSquare &&
-                captureSquare === lastMove?.toSquare &&
-                chessboard.getSquareByDirection(captureSquare, controller.player.direction, 2) === lastMove.fromSquare &&
-                captureSquare.isOccupiedByPieceName(PieceName.Pawn) &&
-                captureSquare.isOccupiedByOpponent(this.color))
-            {
-                toSquare = chessboard.getSquareByDirection(captureSquare, controller.player.direction);
-                if (toSquare && toSquare.isEmpty()) {
-                    let move: Move = new EnPassantCapture(fromSquare, toSquare, captureSquare.getPiece()!, captureSquare);
-                    if (!controller.isCheckedIfMoving(move, chessboard)) {
-                        moves.push(move);
+        if (controller.enPassantTargetSquare) {
+            let enPassantTargetSquare: Square|null = null;
+            let toSquare: Square|null = null;
+
+            for (const direction of [Direction.Left, Direction.Right]) {
+                enPassantTargetSquare = chessboard.getSquareByDirection(fromSquare, direction);
+                if (enPassantTargetSquare?.name === controller.enPassantTargetSquare) {
+                    toSquare = chessboard.getSquareByDirection(enPassantTargetSquare, controller.player.direction);
+                    if (toSquare && toSquare.isEmpty()) {
+                        let move: Move = new EnPassantCapture(fromSquare, toSquare, enPassantTargetSquare.getPiece()!, enPassantTargetSquare);
+                        if (!controller.isCheckedIfMoving(move, chessboard)) {
+                            moves.push(move);
+                        }
                     }
                 }
             }

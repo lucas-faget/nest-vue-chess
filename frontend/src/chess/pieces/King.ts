@@ -1,6 +1,5 @@
 import { Side } from "../types/Sides";
 import type { Coordinates } from "../coordinates/Position";
-import { Direction } from "../coordinates/Direction";
 import { PieceName } from "../types/PieceName";
 import { Piece } from "./Piece";
 import { Queen } from "./Queen";
@@ -9,7 +8,6 @@ import { Move } from "../moves/Move";
 import { Capture } from "../moves/Capture";
 import { Castling } from "../moves/Castling";
 import type { Chessboard } from "../chessboards/Chessboard";
-import type { Player } from "../players/Player";
 import type { PlayerController } from "../players/PlayerController";
 
 export class King extends Piece

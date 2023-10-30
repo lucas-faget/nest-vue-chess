@@ -1,6 +1,8 @@
 export interface FenRecord {
-    position: string,
-    sideToMove: string,
-    castlingRights: string,
-    enPassantTarget: string
+    position: string;
+    activeColor: string;
+    castlingRights: string;
+    enPassantTarget: string;
+    halfmoveClock: string;
+    fullmoveNumber: string;
 }

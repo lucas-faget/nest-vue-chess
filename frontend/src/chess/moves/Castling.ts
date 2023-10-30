@@ -1,6 +1,5 @@
-import type { CastlingRights } from "../types/CastlingRights";
-import type { Player } from "../players/Player";
 import type { Square } from "../squares/Square";
+import { MoveType } from "../types/MoveType";
 import { Move } from "./Move";
 
 export class Castling extends Move
@@ -22,5 +21,10 @@ export class Castling extends Move
     {
         super.undoMove();
         this.rookMove.undoMove();
+    }
+
+    getMoveType(): MoveType
+    {
+        return MoveType.Castling;
     }
 }

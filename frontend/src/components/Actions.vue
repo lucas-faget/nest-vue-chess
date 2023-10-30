@@ -38,7 +38,7 @@
                         this.chess.showNextMove();
                         break;
                     case ActionType.Last:
-                        this.chess.goToLastMove();
+                        this.chess.showLastMove();
                         break;
                     case ActionType.Cancel:
                         this.chess.deleteLastMove();
@@ -47,7 +47,7 @@
             },
             isBlinking(actionType: ActionType, isHovered: boolean): boolean
             {
-                return !isHovered && actionType === ActionType.Last && !this.chess.isCurrentMoveTheLast();
+                return !isHovered && actionType === ActionType.Last && !this.chess.isActiveTurnTheLast();
             }
         }
     }

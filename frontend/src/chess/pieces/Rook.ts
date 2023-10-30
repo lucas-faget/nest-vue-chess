@@ -3,7 +3,6 @@ import { Direction } from "../coordinates/Direction";
 import type { PlayerColor } from "../types/PlayerColor";
 import { PieceName } from "../types/PieceName";
 import { MobilePiece } from "./MobilePiece";
-import type { Square } from "../squares/Square";
 
 export class Rook extends MobilePiece
 {

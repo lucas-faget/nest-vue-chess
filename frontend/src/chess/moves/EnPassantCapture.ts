@@ -1,6 +1,6 @@
 import type { Piece } from "../pieces/Piece";
-import type { Player } from "../players/Player";
 import type { Square } from "../squares/Square";
+import { MoveType } from "../types/MoveType";
 import { Capture } from "./Capture";
 
 export class EnPassantCapture extends Capture
@@ -12,16 +12,21 @@ export class EnPassantCapture extends Capture
         this.capturedPieceSquare = capturedPieceSquare;
     }
 
-    carryoutMove(player: Player): void
+    carryoutMove(): void
     {
-        super.carryoutMove(player);
+        super.carryoutMove();
         this.capturedPieceSquare.piece = null;
     }
 
-    undoMove(player: Player): void
+    undoMove(): void
     {
         this.fromSquare.piece = this.toSquare.piece;
         this.toSquare.piece = null;
         this.capturedPieceSquare.piece = this.capturedPiece;
+    }
+
+    getMoveType(): MoveType
+    {
+        return MoveType.EnPassantCapture;
     }
 }

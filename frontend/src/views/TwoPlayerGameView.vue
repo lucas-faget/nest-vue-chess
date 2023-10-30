@@ -35,7 +35,7 @@
 		},
 		methods: {
 			isPlayerMoving(player: Player): boolean {
-                return this.chess.isCurrentMoveTheLast() && this.chess.controller.player === player;
+                return this.chess.isActiveTurnTheLast() && this.chess.controller.player === player;
             },
 			setLightSquareColor(squareColor: SquareColor) {
 				this.lightSquareColor = squareColor;

@@ -1,4 +1,4 @@
-import type { Move } from "./Move";
+import type { Move } from "../moves/Move";
 
 export interface LegalMoves {
     [key: string]: {

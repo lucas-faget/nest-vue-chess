@@ -24,7 +24,7 @@ export abstract class Piece
 
     abstract getName(): PieceName;
 
-    abstract getMoves(square: Square, chessboard: Chessboard, controller: PlayerController, lastMove: Move|null): Move[];
+    abstract getMoves(square: Square, chessboard: Chessboard, controller: PlayerController): Move[];
 
     toString(): string
     {

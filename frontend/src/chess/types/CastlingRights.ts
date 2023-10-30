@@ -1,4 +1,4 @@
 export interface CastlingRights {
-    kingside: boolean,
-    queenside: boolean
+    kingside: boolean;
+    queenside: boolean;
 }

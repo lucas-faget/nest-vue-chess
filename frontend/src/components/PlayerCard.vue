@@ -26,7 +26,7 @@
 
                 return allCapturedPieces;
             },
-            ...mapGetters(['getPieceImageSrc'])
+            ...mapGetters(['getPieceImageSrc', 'fullLetterColor'])
         },
         methods: {
             contrastColor(color: PlayerColor): PlayerColor {
@@ -46,7 +46,7 @@
 	<div class="player-card">
         <div class="left">
             <div :class="['left', 'sphere-and-name', {'blink': isPlayerMoving}]">
-                <div :class="['sphere', 'player-color-' + player.color]"></div>
+                <div :class="['sphere', 'player-color-' + fullLetterColor(player.color)]"></div>
                 <div>
                     <span v-if="player.name">{{ player.name }}</span>
                     <span v-else>{{ player.color }}</span>

@@ -5,21 +5,20 @@ import { Bishop } from "../pieces/Bishop";
 import { Rook } from "../pieces/Rook";
 import { Queen } from "../pieces/Queen";
 import type { Square } from "../squares/Square";
-import type { LegalMoves } from "../moves/LegalMoves";
+import type { LegalMoves } from "../types/LegalMoves";
 import type { Move } from "../moves/Move";
 import type { Chessboard } from "../chessboards/Chessboard";
-import type { Chess } from "../games/Chess";
+import { Chess } from "../games/Chess";
 
 export class PlayerController
 {
     player: Player;
-    kingSquare: Square|null;
-    legalMoves: LegalMoves;
+    kingSquare: Square|null = null;
+    legalMoves: LegalMoves = {};
+    enPassantTargetSquare: string = Chess.NoneEnPassantTargetSquare;
 
     constructor(player: Player) {
         this.player = player;
-        this.kingSquare = null;
-        this.legalMoves = {};
     }
 
     setPlayer(player: Player)
@@ -71,7 +70,7 @@ export class PlayerController
         this.resetLegalMoves();
         for (const square of chess.chessboard.squares.values()) {
             if (square.isOccupiedByAlly(this.player.color)) {
-                let moves: Move[] = square.getPiece()!.getMoves(square, chess.chessboard, this, chess.getLastMove());
+                let moves: Move[] = square.getPiece()!.getMoves(square, chess.chessboard, this);
                 if (moves) {
                     for (const move of moves) {
                         if (!this.legalMoves[move.fromSquare.name]) {

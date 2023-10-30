@@ -1,16 +1,16 @@
+import type { Chessboard } from "../chessboards/Chessboard";
+import type { Coordinates } from "../coordinates/Position";
 import type { Piece } from "../pieces/Piece";
-import type { Player } from "../players/Player";
 import type { Square } from "../squares/Square";
-import type { CastlingRights } from "../types/CastlingRights";
-import type { SerialisedMove } from "./SerialisedMove";
+import { MoveType } from "../types/MoveType";
+import { PieceName } from "../types/PieceName";
+import type { SerialisedMove } from "../types/SerialisedMove";
 
 export class Move
 {
     fromSquare: Square;
     toSquare: Square;
     capturedPiece: Piece|null;
-    isKingsideCastlingDisabled?: boolean;
-    isQueensideCastlingDisabled?: boolean;
 
     constructor(fromSquare: Square, toSquare: Square)
     {
@@ -37,5 +37,16 @@ export class Move
             fromSquareName: this.fromSquare.name,
             toSquareName: this.toSquare.name
         }
+    }
+
+    isDoubleStepPawnAdvance(chessboard: Chessboard, playerDirection: Coordinates): boolean
+    {
+        return this.fromSquare.getPiece()?.getName() === PieceName.Pawn
+            && this.toSquare === chessboard.getSquareByDirection(this.fromSquare, playerDirection, 2);
+    }
+
+    getMoveType(): MoveType
+    {
+        return MoveType.Move;
     }
 }
