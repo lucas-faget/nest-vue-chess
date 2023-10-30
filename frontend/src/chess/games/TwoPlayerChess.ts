@@ -31,13 +31,16 @@ export class TwoPlayerChess extends Chess
         const chessboard: Chessboard = new TwoPlayerChessboard(fenRecord.position);
         const gameState: GameState = {
             move: null,
-            castlingRights: controller.player.castlingRights,
+            castlingRights: {
+                kingside: controller.player.castlingRights.kingside,
+                queenside: controller.player.castlingRights.queenside,
+            },
             enPassantTargetSquare: fenRecord.enPassantTarget,
             halfmoveNumber: parseInt(fenRecord.halfmoveClock)
         };
 
         super(variant, players, controller, chessboard, gameState);
-        this.setCastlingRights(fenRecord.castlingRights);
+        this.setCastlingRightsFromFen(fenRecord.castlingRights);
     }
 
     static getFenRecordFromString(fenString: string): FenRecord
@@ -53,7 +56,7 @@ export class TwoPlayerChess extends Chess
         }
     }
 
-    setCastlingRights(castlingRightsString: string): void
+    setCastlingRightsFromFen(castlingRightsString: string): void
     {
         this.players[0].castlingRights = {
             kingside: castlingRightsString.includes(TwoPlayerChess.WhiteKingsideCastling),

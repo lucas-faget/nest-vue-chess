@@ -101,12 +101,9 @@ export abstract class Chess
         }
     }
 
-    getCastlingRights(move: Move): CastlingRights
+    setCastlingRights(move: Move): void
     {
-        const castlingRights: CastlingRights = {
-            kingside: this.controller.player.castlingRights.kingside,
-            queenside: this.controller.player.castlingRights.queenside
-        };
+        const castlingRights: CastlingRights = this.controller.player.castlingRights;
 
         if (castlingRights.kingside || castlingRights.queenside) {
             if (this.controller.player.castlingRights.kingside) {
@@ -138,17 +135,16 @@ export abstract class Chess
                 }
             }
         }
-
-        this.controller.player.castlingRights = castlingRights;
-
-        return castlingRights;
     }
 
     addGameState(move: Move): void
     {
         this.gameStateByTurn.push({
             move: move,
-            castlingRights: this.getCastlingRights(move),
+            castlingRights: {
+                kingside: this.controller.player.castlingRights.kingside,
+                queenside: this.controller.player.castlingRights.queenside,
+            },
             enPassantTargetSquare: this.getEnPassantTargetSquare(move),
             halfmoveNumber: this.getHalfmoveNumber(move)
         });
@@ -172,6 +168,8 @@ export abstract class Chess
     saveMove(move: Move): void
     {
         this.addGameState(move);
+        this.setCastlingRights(move);
+        this.addPlayerCapturedPiece(move);
         move.carryoutMove();
         this.incrementFullmoveNumber();
         this.setNextPlayer();
@@ -187,8 +185,8 @@ export abstract class Chess
                 if (lastGameState.move) lastGameState.move.undoMove();
                 this.decrementFullmoveNumber();
                 this.setPreviousPlayer();
-                console.log(this.controller.player)
                 this.controller.player.castlingRights = lastGameState.castlingRights;
+                if (lastGameState.move) this.removePlayerCapturedPiece(lastGameState.move);
                 this.updateController();
             }
         }

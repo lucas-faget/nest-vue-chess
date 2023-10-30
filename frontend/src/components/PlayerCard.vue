@@ -52,7 +52,7 @@
                     <span v-else>{{ player.color }}</span>
                 </div>
             </div>
-            <div v-if="allCapturedPieces && allCapturedPieces.length > 0" :class="['captured-pieces', 'player-color-' + player.color]">
+            <div v-if="allCapturedPieces && allCapturedPieces.length > 0" :class="['captured-pieces', 'player-color-' + fullLetterColor(player.color)]">
                 <div v-for="(capturedPiecesGroup, index) in allCapturedPieces" :key="index" class="captured-piece-group">
                     <img v-for="(pieceName, index2) in capturedPiecesGroup" :key="index2" class="piece-image" :src="getPieceImageSrc(contrastColor(player.color), pieceName)" alt="piece" />
                 </div>
